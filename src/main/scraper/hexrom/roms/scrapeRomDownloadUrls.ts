@@ -30,8 +30,4 @@ async function scrapeRomDownloadUrls(romUrl: string): Promise<DownloadRom> {
     }
 }
 
-(async () => {
-    const romUrl = "https://hexrom.com/pokemon-fire-red/download/"; 
-    const downloadRom = await scrapeRomDownloadUrls(romUrl);
-    console.log(downloadRom);
-})();
+export default scrapeRomDownloadUrls;
