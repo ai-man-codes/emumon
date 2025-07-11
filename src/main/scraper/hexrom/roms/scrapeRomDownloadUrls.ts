@@ -33,9 +33,3 @@ async function scrapeRomDownloadUrls(romUrl: string): Promise<DownloadRom> {
 }
 
 export default scrapeRomDownloadUrls;
-
-(async () => {
-    const romUrl = "https://hexrom.com/pokemon-sun-3ds/download/";
-    const downloadRom = await scrapeRomDownloadUrls(romUrl);
-    console.log(downloadRom);
-})();

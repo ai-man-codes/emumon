@@ -53,8 +53,4 @@ async function scrapeRomDetails(romUrl: string): Promise<RomDetails> {
     }
 }
 
-(async () => {
-    const romUrl = "https://hexrom.com/pokemon-sun-3ds/"; 
-    const romDetails = await scrapeRomDetails(romUrl);
-    console.log(romDetails);
-})();
+export default scrapeRomDetails;
