@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import * as extractZip from 'extract-zip';
+import extractZip from 'extract-zip';
 import { Extract } from 'node-7z';
 import { path7za } from '7zip-bin';
 
