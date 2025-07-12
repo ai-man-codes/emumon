@@ -1,6 +1,6 @@
-import path from 'path';
+import * as path from 'path';
 
-import extractZip from 'extract-zip';
+import * as extractZip from 'extract-zip';
 import { Extract } from 'node-7z';
 import { path7za } from '7zip-bin';
 
@@ -13,7 +13,7 @@ interface unzipFileInterface {
 }
 
 async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<void> {
-    const emulatorExt: ext = path.extname(filePath) == '.zip' ? '.zip' : '.7z';
+    const emulatorExt: ext = path.extname(filePath) === '.zip' ? '.zip' : '.7z';
 
     if(emulatorExt === '.zip') {
         try {
@@ -36,13 +36,12 @@ async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<
 
         } catch (error) {
             console.error('Error extracting 7z file:', error);
-            throw error;
+            throw  error;
             
         }
         const sevenZip = new Extract({
             $bin: path7za,
         });
-
     }
 }
 
