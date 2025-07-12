@@ -24,6 +24,8 @@ async function downloadFile(url: string, savePath: string): Promise<void> {
     }
 }
 
+export default downloadFile;
+
 // const url = "https://github.com/mgba-emu/mgba/releases/download/0.10.3/mGBA-0.10.3-win64.7z";
 // const ext = path.extname(url);
 
