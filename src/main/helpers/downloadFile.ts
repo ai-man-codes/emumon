@@ -10,9 +10,9 @@ async function downloadFile(url: string, savePath: string): Promise<void> {
             responseType: "stream",
         });
 
-        response.data.pipe(writer);
-
         await new Promise<void>((resolve, reject) => {
+            response.data.pipe(writer);
+            
             writer.on("finish", resolve);
             writer.on("error", reject);
         });
