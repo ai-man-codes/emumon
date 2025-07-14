@@ -7,11 +7,13 @@ interface RomsSitesItemsI {
 
 const RomsSiteCard = ({ item }: RomsSitesItemsI) => {
     return (
-        <Link to={item.to} className='flex flex-col items-center'>
-            <img src={new URL('../../assets/icons/' + item.name + '-logo.png', import.meta.url).href} alt="Extension"
-                className='h-2/5 w-4/5' />
+        <Link to={item.to} className='flex flex-col items-center p-4 m-5 hover:opacity-80 transition-all duration-200 hover:-translate-y-4'>
+            <div className='h-20'>
+                <img src={new URL('../../assets/icons/' + item.name + '-logo.png', import.meta.url).href} alt="Extension"
+                    className='' />
+            </div>
 
-            <h1 className='text-white font-bold text-center'>{item.name}</h1>
+            <h1 className='text-white font-light text-center text-2xl'>{item.name}</h1>
         </Link>
 
     )
