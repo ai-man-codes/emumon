@@ -9,14 +9,14 @@ const navItems = [
     { name: "Settings", to: "/settings" }
 ]
 
-const baseClass = 'flex items-center px-10 py-3 rounded-full transition-colors duration-200'
+const baseClass = 'flex items-center px-10 py-3 rounded-full transition-colors duration-200 text-xl'
 const hoverClass = 'hover:opacity-60'
 const activeClass = 'bg-white font-semibold text-gray-900'
 
 function SideBar() {
     return (
-        <aside className='w-64 h-screen bg-neutral-900 text-white flex flex-col p-4'>
-            <h2 className='text-2xl font-bold mb-4'>Emumon</h2>
+        <aside className='w-72 h-screen bg-gradient-to-b from-neutral-900 via-neutral-800 to-neutral-900 text-white flex flex-col p-4'>
+            <h2 className='text-3xl font-bold mb-8 m-2'>Emumon</h2>
             <nav className='flex flex-col space-y-2'>
                 {navItems.map(item => (
                     <NavLink

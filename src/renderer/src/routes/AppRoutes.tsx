@@ -1,7 +1,7 @@
 import MainLayout from '@renderer/layouts/MainLayout'
 import Emulators from '@renderer/pages/Emulators'
 import Library from '@renderer/pages/Library'
-import Roms from '@renderer/pages/Roms'
+import RomsSites from '@renderer/pages/RomsSites'
 import Settings from '@renderer/pages/Settings'
 
 import React from 'react'
@@ -24,7 +24,7 @@ const AppRoutes = () => {
                 },
                 {
                     path: 'roms',
-                    element: <Roms />,
+                    element: <RomsSites />,
                 },
                 {
                     path: 'emulators',

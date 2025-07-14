@@ -19,7 +19,7 @@ const MainLayout = () => {
         </video>
 
         {/* Semi-transparent dark overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-80 z-10" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(23,23,23,0.8)_0%,_rgba(15,15,15,0.95)_100%)] z-10" />
 
         {/* Foreground content: header + routed pages */}
         <div className="relative z-20 flex flex-col h-full">
