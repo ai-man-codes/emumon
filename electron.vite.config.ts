@@ -17,6 +17,6 @@ export default defineConfig({
         "@": path.resolve('src/renderer/src'),
       }
     },
-    plugins: [react()]
+    plugins: [react()],
   }
 })

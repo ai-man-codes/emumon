@@ -8,9 +8,10 @@ interface Rom {
     url: string;
     romName: string;
     userDir: string;
+    source: string;
 }
 
-async function downloadRom({ url, romName, userDir }: Rom): Promise<void> {
+async function downloadRom({ url, romName, userDir, source }: Rom): Promise<void> {
     const ext = path.extname(url);
     const saveDir = path.join(userDir, 'Roms');
 
@@ -18,11 +19,13 @@ async function downloadRom({ url, romName, userDir }: Rom): Promise<void> {
 
     const savePath = path.join(saveDir, romName + ext);
 
+    const saveRomDir = path.join(saveDir, source);
+
     await downloadFile(url, savePath);
 
     await unzipFile({
         filePath: savePath, 
-        outputPath: saveDir,
+        outputPath: saveRomDir,
     });
 
     fs.unlinkSync(savePath); // Remove the downloaded archive after extraction
@@ -38,6 +41,7 @@ export default downloadRom;
         url: 'https://dl4.hexrom.com/rom/gba/Pokemon_FireRed_Version_[hexrom.com].zip',
         romName: 'Pokemon FireRed Version',
         userDir: path.join(__dirname, 'rom_download_test'),
+        source: 'hexrom',
     };
 
     try {
