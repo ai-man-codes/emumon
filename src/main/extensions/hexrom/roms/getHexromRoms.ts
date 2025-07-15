@@ -1,28 +1,28 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-interface Emulator {
+interface Rom {
     name: string;
-    emulatorUrl: string;
+    romUrl: string;
     imageUrl: string;
 }
 
-async function scrapeEmulators(consoleUrl: string): Promise<Emulator[]> {
+async function getHexromRoms(consoleUrl: string): Promise<Rom[]> {
     try {
         const { data: html } = await axios.get(consoleUrl);
         const $ = cheerio.load(html);   
 
-        const roms: Emulator[] = [];
+        const roms: Rom[] = [];
 
         $('.custom-card').each((_, el) => {
             const name = $(el).find('h2').text().trim();
-            const emulatorUrl = $(el).find('a').attr('href') || '';
+            const romUrl = $(el).find('a').attr('href') || '';
             const imageUrl = $(el).find('.image-container img').attr('data-src') || '';
 
-            if(name && emulatorUrl && imageUrl) {
+            if(name && romUrl && imageUrl) {
                 roms.push({
                     name,
-                    emulatorUrl,
+                    romUrl,
                     imageUrl,
                 });
             }
@@ -31,9 +31,9 @@ async function scrapeEmulators(consoleUrl: string): Promise<Emulator[]> {
         return roms;
 
     } catch (error) {
-        console.error("Error scraping Emulators:", error);
+        console.error("Error scraping ROMs:", error);
         return [];
     }
 }
 
-export default scrapeEmulators;
+export default getHexromRoms;

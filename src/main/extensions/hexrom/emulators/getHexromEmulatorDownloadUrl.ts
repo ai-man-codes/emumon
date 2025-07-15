@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-async function scrapeEmulatorDownloadUrl(emulatorUrl: string): Promise<string[]> {
+async function getHexromEmulatorDownloadUrl(emulatorUrl: string): Promise<string[]> {
     const downloadUrls: string[] = [];
 
     try {
@@ -36,4 +36,4 @@ async function scrapeEmulatorDownloadUrl(emulatorUrl: string): Promise<string[]>
     return downloadUrls.pop() ? downloadUrls : [];
 }
 
-export default scrapeEmulatorDownloadUrl;
+export default getHexromEmulatorDownloadUrl;

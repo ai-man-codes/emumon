@@ -5,7 +5,7 @@ interface DownloadRom {
     downloadUrls: string[];
 }
 
-async function scrapeRomDownloadUrls(romUrl: string): Promise<DownloadRom> {
+async function getHexromRomDownloadUrls(romUrl: string): Promise<DownloadRom> {
 
     const downloadRom: DownloadRom = {
         downloadUrls: [],
@@ -32,4 +32,4 @@ async function scrapeRomDownloadUrls(romUrl: string): Promise<DownloadRom> {
     }
 }
 
-export default scrapeRomDownloadUrls;
+export default getHexromRomDownloadUrls;

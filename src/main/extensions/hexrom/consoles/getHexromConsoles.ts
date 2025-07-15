@@ -9,7 +9,7 @@ interface Console {
     url: string;
 }
 
-async function scrapeConsoles(): Promise<Console[]> {
+async function getHexromConsoles(): Promise<Console[]> {
     try {
         const { data: html } = await axios.get(BASE_URL);
         const $ = cheerio.load(html);
@@ -30,7 +30,7 @@ async function scrapeConsoles(): Promise<Console[]> {
             }
         });
 
-        return consoles;
+        return JSON.parse(JSON.stringify(consoles));
 
     } catch (error) {
         console.error("Error scraping consoles:", error);
@@ -38,4 +38,4 @@ async function scrapeConsoles(): Promise<Console[]> {
     }
 }
 
-export default scrapeConsoles;
+export default getHexromConsoles

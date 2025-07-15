@@ -14,7 +14,7 @@ interface RomDetails {
     metadata: RomMetadata;
 }
 
-async function scrapeRomDetails(romUrl: string): Promise<RomDetails> {
+async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
 
     const romDetails: RomDetails = {
             name: '',
@@ -53,4 +53,4 @@ async function scrapeRomDetails(romUrl: string): Promise<RomDetails> {
     }
 }
 
-export default scrapeRomDetails;
+export default getHexromRomDetails;

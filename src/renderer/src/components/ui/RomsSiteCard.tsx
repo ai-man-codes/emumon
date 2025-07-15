@@ -5,9 +5,14 @@ interface RomsSitesItemsI {
     item: { name: string, to: string }
 }
 
+const handleRomsSiteClick = () => {
+    console.log("Hello")
+}
+
 const RomsSiteCard = ({ item }: RomsSitesItemsI) => {
     return (
-        <Link to={item.to} className='flex flex-col items-center p-4 m-5 hover:opacity-80 transition-all duration-200 hover:-translate-y-4'>
+        <Link to={`${item.to}`}
+          className='flex flex-col items-center p-4 m-5 hover:opacity-80 transition-all duration-200 hover:-translate-y-4'>
             <div className='h-20'>
                 <img src={new URL('../../assets/icons/' + item.name + '-logo.png', import.meta.url).href} alt="Extension"
                     className='' />
