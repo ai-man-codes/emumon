@@ -1,18 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-interface RomMetadata {
-    publishedDate: string;
-    emulator: string;
-    downloadCount: number;
-}
-
-interface RomDetails {
-    name: string;
-    downloadPageUrl: string;
-    imageUrl: string;
-    metadata: RomMetadata;
-}
+import { RomDetails } from "@/main/types/romDetails";
 
 async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
 

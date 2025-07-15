@@ -69,10 +69,10 @@ app.whenReady().then(() => {
   });
   
   ipcMain.handle("fetch-consoles", async (_, extension: string) => {
-    const consoles = await getHexromConsoles();
 
     switch (extension) {
         case "hexrom":
+            const consoles = await getHexromConsoles();
             return JSON.stringify(consoles);
 
         default:

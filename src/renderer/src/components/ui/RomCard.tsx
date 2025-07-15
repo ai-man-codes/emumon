@@ -2,7 +2,7 @@ import React from 'react'
 
 const RomCard = () => {
     return (
-        <div className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent hover:opacity-80 transition-all duration-200 hover:-translate-y-4'>
+        <div className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent hover:opacity-80 hover:scale-105 transition-all duration-200 hover:-translate-y-4'>
             <div className='relative w-48 h-60 overflow-hidden rounded-xl'>
                 <img src={new URL('../../assets/images/fire-red.jpg', import.meta.url).href} alt="Image"
                     className="w-full h-full " />

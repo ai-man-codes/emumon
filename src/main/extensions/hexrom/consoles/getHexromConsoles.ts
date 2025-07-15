@@ -3,11 +3,7 @@ import * as cheerio from "cheerio";
 
 const BASE_URL = "https://hexrom.com/rom-category/";
 
-interface Console {
-    name: string;
-    totalGames: number;
-    url: string;
-}
+import { Console } from "@/main/types/console";
 
 async function getHexromConsoles(): Promise<Console[]> {
     try {

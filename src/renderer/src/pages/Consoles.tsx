@@ -31,7 +31,7 @@ const Consoles = () => {
     }, [extension])
 
     return (
-        <div className='grid grid-cols-5 justify-evenly gap-5 mx-14 my-4'>
+        <div className='grid grid-cols-3 justify-evenly gap-x-14 mx-14 my-4 gap-y-10'>
             {consoles.map((data, index) => (
                 <ConsoleCard name={data.name} totalGames={data.totalGames} url={data.url} />
             ))}

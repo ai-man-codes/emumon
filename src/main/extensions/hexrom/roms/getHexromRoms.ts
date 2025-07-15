@@ -1,11 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-interface Rom {
-    name: string;
-    romUrl: string;
-    imageUrl: string;
-}
+import { Rom } from "@/main/types/rom";
 
 async function getHexromRoms(consoleUrl: string): Promise<Rom[]> {
     try {

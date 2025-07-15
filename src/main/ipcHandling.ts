@@ -1,16 +1,15 @@
 import getHexromConsoles from "./extensions/hexrom/consoles/getHexromConsoles";
 
-function ipcExtensionsHandling(extension: string) {
-    switch (extension) {
-        case "hexrom":
-            return getHexromConsoles;
-
-        default:
-            throw new Error("Extension not available");
-
-        // case "romspedia":
-        //     return await getRomspediaConsoles;
-    }
+async function ipcExtensionsHandling(extension: string) {
+    
+        switch (extension) {
+            case "hexrom":
+                const consoles = await getHexromConsoles();
+                return JSON.stringify(consoles);
+    
+            default:
+                throw new Error("Extension not available");
+        }
 };
 
 export default ipcExtensionsHandling;
