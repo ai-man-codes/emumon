@@ -8,5 +8,8 @@ module.exports = {
   theme: {
     extend: {} // no customizations
   },
-  plugins: ['tailwind-scrollbar']
+  plugins: [
+    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar-hide'),
+  ],
 }

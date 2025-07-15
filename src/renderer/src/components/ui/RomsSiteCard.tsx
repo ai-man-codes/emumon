@@ -12,7 +12,7 @@ const handleRomsSiteClick = () => {
 const RomsSiteCard = ({ item }: RomsSitesItemsI) => {
     return (
         <Link to={`${item.to}`}
-          className='flex flex-col items-center p-4 m-5 hover:opacity-80 transition-all duration-200 hover:-translate-y-4'>
+          className='flex flex-col items-center p-4 m-5 rounded-2xl hover:opacity-80 transition-all duration-100 hover:-translate-y-4 hover:border-4'>
             <div className='h-20'>
                 <img src={new URL('../../assets/icons/' + item.name + '-logo.png', import.meta.url).href} alt="Extension"
                     className='' />

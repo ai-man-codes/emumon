@@ -15,7 +15,7 @@ const MainLayout = () => {
           className="absolute inset-0 object-cover w-full h-full z-0"
         >
           <source src={new URL('../assets/videos/bg-small.mp4', import.meta.url).href} type="video/mp4" />
-          
+
         </video>
 
         {/* Semi-transparent dark overlay */}
@@ -24,9 +24,11 @@ const MainLayout = () => {
         {/* Foreground content: header + routed pages */}
         <div className="relative z-20 flex flex-col h-full">
           <Header />
-          <main className="flex-1 overflow-y-auto">
-            <Outlet />
-          </main>
+          {/* <main className="flex-1 overflow-y-auto"> */}
+            <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 hover:scrollbar-thumb-gray-600 h-full scrollbar-track-transparent scrollbar-hide">
+              <Outlet />
+            </div>
+          {/* </main> */}
         </div>
       </div>
     </div>

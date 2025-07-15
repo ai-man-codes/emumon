@@ -4,32 +4,37 @@ import ConsoleCard from '@renderer/components/ui/ConsoleCard'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { Console } from '@renderer/types/console'
+
 const Consoles = () => {
     const { extension } = useParams();
-    const [consoles, setConsoles] = useState<any[]>([])
+    const [consoles, setConsoles] = useState<Console[]>([]);
 
     useEffect(() => {
-        
+
         async function load() {
             if (!extension) return;
 
             try {
-                const consoles = await window.api.fetchConsoles(extension)
-                const objConsoles = JSON.parse(consoles)
-                setConsoles(objConsoles); 
+                const data = await window.api.fetchConsoles(extension)
+                const parsed = JSON.parse(data)
+
+                setConsoles(parsed)
+
             } catch (err) {
                 console.error("Failed to fetch consoles:", err);
             }
-
-            console.log(consoles);
         }
+
         load()
 
     }, [extension])
 
     return (
-        <div className='text-white p-2 m-3'>
-            Hello
+        <div className='grid grid-cols-5 justify-evenly gap-5 mx-14 my-4'>
+            {consoles.map((data, index) => (
+                <ConsoleCard name={data.name} totalGames={data.totalGames} url={data.url} />
+            ))}
         </div>
     )
 }
