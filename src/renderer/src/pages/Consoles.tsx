@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Console } from '@renderer/types/console'
+import useExtensionStore from '@renderer/store/useExtensionStore'
 
 const Consoles = () => {
     const { extension } = useParams();
-    const [consoles, setConsoles] = useState<Console[]>([]);
+    const [ consoles, setConsoles ] = useState<Console[]>([]); // contains all the data about the consoles
 
     useEffect(() => {
 
@@ -22,18 +23,18 @@ const Consoles = () => {
                 setConsoles(parsed)
 
             } catch (err) {
-                console.error("Failed to fetch consoles:", err);
+                console.error("Failed to fetch consoles: ", err);
             }
         }
 
         load()
 
-    }, [extension])
+    }, [])
 
     return (
         <div className='grid grid-cols-3 justify-evenly gap-x-14 mx-14 my-4 gap-y-10'>
             {consoles.map((data, index) => (
-                <ConsoleCard name={data.name} totalGames={data.totalGames} url={data.url} />
+                <ConsoleCard key={index} name={data.name} totalGames={data.totalGames} url={data.url} />
             ))}
         </div>
     )

@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
 import getHexromConsoles from './extensions/hexrom/consoles/getHexromConsoles'
+import getHexromRoms from './extensions/hexrom/roms/getHexromRoms'
 
 function createWindow(): void {
   // Create the browser window.
@@ -79,6 +80,19 @@ app.whenReady().then(() => {
             throw new Error("Extension not available");
     }
   });
+
+  ipcMain.handle("fetch-roms", async(_, extension: string, consoleId: string) => {
+    console.log(extension, consoleId)
+    switch (extension) {
+        case "hexrom":
+            const roms = await getHexromRoms(consoleId);
+            return JSON.stringify(roms);
+    
+        default:
+            throw new Error("Conosle url not available")
+    }
+  })
+
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

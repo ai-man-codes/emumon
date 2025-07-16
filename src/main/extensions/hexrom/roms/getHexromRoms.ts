@@ -3,8 +3,12 @@ import * as cheerio from "cheerio";
 
 import { Rom } from "@/main/types/rom";
 
-async function getHexromRoms(consoleUrl: string): Promise<Rom[]> {
+const BASE_URL = "https://hexrom.com/roms/";
+
+async function getHexromRoms(consoleId: string): Promise<Rom[]> {
     try {
+        const consoleUrl = BASE_URL + consoleId;
+
         const { data: html } = await axios.get(consoleUrl);
         const $ = cheerio.load(html);   
 

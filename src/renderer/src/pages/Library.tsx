@@ -1,13 +1,13 @@
-import RomCard from '@renderer/components/ui/RomCard'
+import RomCardSample from '@renderer/components/ui/RomCardSample'
 import React from 'react'
 
 function Library() {
   return (
     <div className='m-5 grid justify-evenly grid-cols-5 gap-6'>
-      <RomCard />
-      <RomCard />
-      <RomCard />
-      <RomCard />
+      <RomCardSample />
+      <RomCardSample />
+      <RomCardSample />
+      <RomCardSample />
 
     </div>
   )

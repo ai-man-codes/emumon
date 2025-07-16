@@ -1,3 +1,4 @@
+import useExtensionStore from '@renderer/store/useExtensionStore'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
@@ -14,6 +15,8 @@ const hoverClass = 'hover:opacity-60'
 const activeClass = 'bg-white font-semibold text-gray-900'
 
 function SideBar() {
+    const { setExtension } = useExtensionStore()
+
     return (
         <aside className='w-72 h-screen bg-gradient-to-b from-neutral-900 via-neutral-800 to-neutral-900 text-white flex flex-col p-4'>
             <h2 className='text-3xl font-bold mb-8 m-2'>Emumon</h2>
@@ -22,6 +25,7 @@ function SideBar() {
                     <NavLink
                         key={item.name}
                         to={item.to}
+                        onClick={ () => setExtension(item.name) }
                         className={({ isActive }) => (
                             twMerge(
                                 baseClass,

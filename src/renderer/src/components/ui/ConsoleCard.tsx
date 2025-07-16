@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom'
 
 import { Console } from '@renderer/types/console'
+import useExtensionStore from '@renderer/store/useExtensionStore';
 
 const ConsoleCard = ({ name, totalGames, url, imageUrl }: Console) => {
-    const path = url.match(/\/([^\/?#]+)(?:[?#]|$)/)?.[1];
-    console.log(path)
+    const { extension } = useExtensionStore();
+    const consoleId = url.split('/').filter(Boolean).pop()
+
+    console.log(`/${extension.toLowerCase()}/${consoleId}`) // checking which console is the path
 
     return (
-        <Link to={`/${path}`} className=' rounded-2xl p-4 hover:opacity-80 transition-all duration-100 hover:scale-110'>
+        <Link to={`/${extension.toLowerCase()}/${consoleId}`} className='p-4 hover:opacity-80 transition-all duration-100 rounded-md hover:scale-110 hover:border hover:border-white border border-transparent'>
             <div>
                 <img src={imageUrl} alt="" />
             </div>
