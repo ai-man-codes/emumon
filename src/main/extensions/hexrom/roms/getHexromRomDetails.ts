@@ -8,12 +8,9 @@ async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
     const romDetails: RomDetails = {
             name: '',
             downloadPageUrl: '',
-            imageUrl: '',
-            metadata: {
-                publishedDate: '',
-                emulator: '',
-                downloadCount: 0,
-            }
+            publishedDate: '',
+            emulator: '',
+            downloadCount: 0,
         };
 
     try {
@@ -22,17 +19,16 @@ async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
 
         $('.container').each((_, el) => {
 
-            romDetails['name'] = $(el).find('tbody tr:nth-child(1) td').text().trim();
-            romDetails['downloadPageUrl'] = $(el).find('div.dcs a').attr('href') || '';
-            romDetails['imageUrl'] = $(el).find('picture img').attr('data-src') || '';
+            
 
-            romDetails['metadata'] = {
-                publishedDate: $(el).find('tbody tr:nth-child(2) td').text().trim(),
-                emulator: $(el).find('tbody tr:nth-child(4) td a').text().trim(),
-                downloadCount: parseInt($(el).find('tbody tr:last-child td').text().trim()) || 0,
-            }
+            // const name = $(el).find('tbody tr:nth-child(1) td').text().trim();
+            // const downloadPageUrl = $(el).find('div.dcs a').attr('href') || '';
+            // // romDetails.imageUrl = $(el).find('picture img').attr('data-src') || '';   // we do not require imageUrl
+            // const publishedDate = $(el).find('tbody tr:nth-child(2) td').text().trim();
+            // const emulator = $(el).find('tbody tr:nth-child(4) td a').text().trim();
+            // const downloadCount = parseInt($(el).find('tbody tr:last-child td').text().trim()) || 0;
 
-        });
+    });
 
         return romDetails;
 
