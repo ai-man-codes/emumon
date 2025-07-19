@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
 import getHexromConsoles from './extensions/hexrom/consoles/getHexromConsoles'
 import getHexromRoms from './extensions/hexrom/roms/getHexromRoms'
+import getHexromRomDetails from './extensions/hexrom/roms/getHexromRomDetails'
 
 function createWindow(): void {
   // Create the browser window.
@@ -90,6 +91,17 @@ app.whenReady().then(() => {
     
         default:
             throw new Error("Conosle url not available")
+    }
+  })
+
+  ipcMain.handle("fetch-rom-details", async(_, extension: string, romUrl: string) => {
+    switch (extension) {
+      case "hexrom":
+        const romDetails = await getHexromRomDetails(romUrl);
+        return JSON.stringify(romDetails);
+
+        default:
+          throw new Error("Rom url not available")
     }
   })
 

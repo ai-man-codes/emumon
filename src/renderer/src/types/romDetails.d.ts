@@ -1,11 +1,13 @@
 export interface RomDetails {
-    downloadPageUrl: string;
     name: string;
+    publish?: string;
     console?: string;
-    publishedDate?: string;
     emulator?: string;
     genre?: string;
     language?: string;
     size?: string;
-    downloadCount?: number;
-}
+    format?: string;
+    downloads?: string;
+    downloadPageUrl?: string;
+    imageUrl?: string;
+  }

@@ -2,19 +2,19 @@ import { create } from 'zustand'
 
 type ExtensionStore = {
     extension: string;
-    console: string;
+    consoleId: string;
     romTitle: string;
     setExtension: (ext: string) => void;
-    setConsle: (console: string) => void;
+    setConsle: (consoleId: string) => void;
     setRomTitle: (title: string) => void;
 };
 
 const useExtensionStore = create<ExtensionStore>((set) => ({
     extension: '',
-    console: '',
+    consoleId: '',
     romTitle: '',
     setExtension: (ext) => set({ extension: ext }),
-    setConsle: (console) => set({ console}),
+    setConsle: (consoleId) => set({ consoleId }),
     setRomTitle: (title) => set({ romTitle: title })
 }));
 

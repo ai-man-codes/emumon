@@ -5,6 +5,7 @@ declare global {
     api: {
       fetchConsoles: (extension: string) => Promise<any>,
       fetchRoms: (extension: string, consoleId: string) => Promise<any>,
+      fetchRomDetails: (extension: string, romId: string) => Promise<any>,
     }
   }
 }

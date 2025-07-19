@@ -17,7 +17,7 @@ const RomCard = ({name, romUrl, imageUrl}: Rom) => {
     const imageUrlFixed = imageUrlBroken(imageUrl)
 
     return (
-        <div className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent hover:opacity-80 hover:scale-105 transition-all duration-200 hover:-translate-y-4'>
+        <div>
             <div className='relative w-48 overflow-hidden rounded-xl'>
                 <img src={ imageUrlFixed } alt="Image"
                     className="w-full" />

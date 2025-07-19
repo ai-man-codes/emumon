@@ -2,7 +2,7 @@ import { RomDetails } from '@renderer/types/romDetails'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const RomDetailsCard = ({ downloadPageUrl, downloadCount,  }: RomDetails) => {
+const RomDetailsCard = () => {
     return (
         <div className='flex flex-col'>
             <div>

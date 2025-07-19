@@ -5,7 +5,7 @@ import Library from '@renderer/pages/Library'
 import RomsSites from '@renderer/pages/RomsSites'
 import Settings from '@renderer/pages/Settings'
 import ConsoleRoms from '@renderer/pages/ConsoleRoms'
-import RomDetails from '@renderer/pages/RomDetails'
+import RomDetailsPage from '@renderer/pages/RomDetailsPage'
 
 import React from 'react'
 import { Navigate } from 'react-router-dom'
@@ -47,7 +47,7 @@ const AppRoutes = () => {
                 },
                 {
                     path: ':extension/:consoleId/:romDetails',
-                    element: <RomDetails />
+                    element: <RomDetailsPage />
                 }
             ]
         }
