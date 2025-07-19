@@ -1,11 +1,9 @@
-import React from 'react'
 import ConsoleCard from '@renderer/components/ui/ConsoleCard'
 
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Console } from '@renderer/types/console'
-import useExtensionStore from '@renderer/store/useExtensionStore'
 
 const Consoles = () => {
     const { extension } = useParams();
@@ -18,9 +16,7 @@ const Consoles = () => {
 
             try {
                 const data = await window.api.fetchConsoles(extension)
-                const parsed = JSON.parse(data)
-
-                setConsoles(parsed)
+                setConsoles(data)
 
             } catch (err) {
                 console.error("Failed to fetch consoles: ", err);

@@ -24,9 +24,8 @@ const RomDetailsPage = () => {
 
       try {
         const data = await window.api.fetchRomDetails(extension.toLowerCase(), romUrl)
-        const parsed = JSON.parse(data)
 
-        setRomDetails(parsed)
+        setRomDetails(data)
       
       } catch (err) {
         console.log("Failed to fetch Rom Details: ", err);

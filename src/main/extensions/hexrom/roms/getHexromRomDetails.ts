@@ -68,8 +68,3 @@ async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
 }
 
 export default getHexromRomDetails;
-
-(async () => {
-    const romDetails = await getHexromRomDetails('https://hexrom.com/pokemon-x-rom-cia/');
-    console.log(romDetails);
-})();

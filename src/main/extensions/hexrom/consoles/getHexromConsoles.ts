@@ -26,7 +26,7 @@ async function getHexromConsoles(): Promise<Console[]> {
             }
         });
 
-        return JSON.parse(JSON.stringify(consoles));
+        return consoles;
 
     } catch (error) {
         console.error("Error scraping consoles:", error);

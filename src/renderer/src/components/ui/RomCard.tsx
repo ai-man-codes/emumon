@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Rom } from '@renderer/types/rom'
 import { ANIME_RIKKA_GIF_URL, HEXROM_BROKEN_IMAGE_URL } from '@renderer/constants/imageUrlBroken'
 
@@ -13,11 +11,11 @@ function imageUrlBroken(imageUrl: string): string {
 
 }
 
-const RomCard = ({name, romUrl, imageUrl}: Rom) => {
+const RomCard = ({name, imageUrl}: Rom) => {
     const imageUrlFixed = imageUrlBroken(imageUrl)
 
     return (
-        <div>
+        <div className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent '>
             <div className='relative w-48 overflow-hidden rounded-xl'>
                 <img src={ imageUrlFixed } alt="Image"
                     className="w-full" />

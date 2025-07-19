@@ -22,10 +22,7 @@ const ConsoleRoms = () => {
 
       try {
         const data = await window.api.fetchRoms(extension.toLowerCase(), consoleId);
-        const parsed = JSON.parse(data);
-
-        setRoms(parsed)
-        console.log(parsed)
+        setRoms(data)
 
       } catch (err) {
         console.log("Failed to fetch Roms: ", err);
@@ -42,7 +39,7 @@ const ConsoleRoms = () => {
 
         <Link to={`/${extension?.toLowerCase()}/${consoleId}/${data.name}`} key={index}
           state={{ romUrl: data.romUrl }}
-          className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent transition-all duration-200 hover:opacity-80 hover:scale-105 hover:-translate-y-4'>
+          className='transition-all duration-200 hover:opacity-80 hover:scale-105 hover:-translate-y-4'>
           
           <RomCard name={data.name} romUrl={data.romUrl} imageUrl={data.imageUrl} />
 
