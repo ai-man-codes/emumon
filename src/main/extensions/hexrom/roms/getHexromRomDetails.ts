@@ -1,36 +1,65 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-import { RomDetails } from "@/main/types/romDetails";
+import { RomDetails } from "../../../types/romDetails"
 
 async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
 
     const romDetails: RomDetails = {
-            name: '',
-            downloadPageUrl: '',
-            publishedDate: '',
-            emulator: '',
-            downloadCount: 0,
-        };
+      name: '',
+      imageUrl: '',
+      downloadPageUrl: ''
+    }
 
     try {
-        const { data: html } = await axios.get(romUrl);
-        const $ = cheerio.load(html);
+      const { data: html } = await axios.get(romUrl);
+      const $ = cheerio.load(html);
 
-        $('.container').each((_, el) => {
+      const imageUrl = $('.container .row').find('div .img-na').attr('data-src') || '';
+      const downloadPageUrl = $('.container .row').find('div .dcs a').attr('href') || '';
 
-            
+      romDetails.imageUrl = imageUrl;
+      romDetails.downloadPageUrl = downloadPageUrl;
 
-            // const name = $(el).find('tbody tr:nth-child(1) td').text().trim();
-            // const downloadPageUrl = $(el).find('div.dcs a').attr('href') || '';
-            // // romDetails.imageUrl = $(el).find('picture img').attr('data-src') || '';   // we do not require imageUrl
-            // const publishedDate = $(el).find('tbody tr:nth-child(2) td').text().trim();
-            // const emulator = $(el).find('tbody tr:nth-child(4) td a').text().trim();
-            // const downloadCount = parseInt($(el).find('tbody tr:last-child td').text().trim()) || 0;
+      $("table tbody tr").each((_, el) => {
+          const key = $(el).find("th").text().trim().toLowerCase();
+          const value = $(el).find("td").text().trim();
+          
 
-    });
+          romDetails.downloadPageUrl = downloadPageUrl;
+      
+          switch (key) {
+            case "name":
+              romDetails.name = value;
+              break;
+            case "publish":
+              romDetails.publish = value;
+              break;
+            case "console":
+              romDetails.console = value;
+              break;
+            case "emulator":
+              romDetails.emulator = value;
+              break;
+            case "genre":
+              romDetails.genre = value;
+              break;
+            case "language":
+              romDetails.language = value;
+              break;
+            case "size":
+              romDetails.size = value;
+              break;
+            case "format":
+              romDetails.format = value;
+              break;
+            case "downloads":
+              romDetails.downloads = value;
+              break;
+          }
+      });
 
-        return romDetails;
+      return romDetails;
 
     } catch (error) {
         console.error("Error scraping ROM details:", error);
@@ -39,3 +68,8 @@ async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
 }
 
 export default getHexromRomDetails;
+
+(async () => {
+    const romDetails = await getHexromRomDetails('https://hexrom.com/pokemon-x-rom-cia/');
+    console.log(romDetails);
+})();
