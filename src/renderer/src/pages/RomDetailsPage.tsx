@@ -26,7 +26,7 @@ const RomDetailsPage = () => {
         const data = await window.api.fetchRomDetails(extension.toLowerCase(), romUrl)
 
         setRomDetails(data)
-      
+
       } catch (err) {
         console.log("Failed to fetch Rom Details: ", err);
       }
@@ -35,12 +35,18 @@ const RomDetailsPage = () => {
     fetchRomDetails()
   }, [extension, romUrl])
 
-  const imageUrlFixed = imageUrlBroken(romDetails?.imageUrl || 'no image')
+  if (!romDetails) return <div>Loading...</div>
+
+  const imageUrlFixed = imageUrlBroken(romDetails.imageUrl || 'no image')
 
   return (
     <div>
-      <RomCard name={romDetails?.name || ''} romUrl={romUrl} imageUrl={imageUrlFixed} />
-      <RomDetailsCard />
+      <div className='flex flex-row justify-evenly h-full items-start items-center' >
+        <div className='scale-125 pt-12'>
+          <RomCard name={romDetails.name} romUrl={romUrl} imageUrl={imageUrlFixed} />
+        </div>
+        <RomDetailsCard {...romDetails} />
+      </div>
     </div>
   )
 }

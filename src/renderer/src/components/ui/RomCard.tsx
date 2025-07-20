@@ -23,7 +23,7 @@ const RomCard = ({name, imageUrl}: Rom) => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70" />
             </div>
 
-            <h1 className='text-xl font-light text-white text-center'>{ name }</h1>
+            <h1 className='text-xl font-light text-white text-center w-48'>{ name }</h1>
 
         </div>
     )

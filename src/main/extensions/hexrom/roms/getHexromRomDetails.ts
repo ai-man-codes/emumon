@@ -7,8 +7,16 @@ async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
 
     const romDetails: RomDetails = {
       name: '',
+      publish: '',
+      console: '',
+      emulator: '',
+      genre: '',
+      language: '',
+      size: '',
+      format: '',
+      downloads: '',
+      downloadPageUrl: '',
       imageUrl: '',
-      downloadPageUrl: ''
     }
 
     try {
