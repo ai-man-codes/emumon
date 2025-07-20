@@ -1,12 +1,9 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-
-interface DownloadRom {
-    downloadUrl: string;
-    downloadName: string;
-}
+import { DownloadRom } from "../../../types/downloadRom";
 
 async function getHexromRomDownloadUrls(romUrl: string): Promise<DownloadRom[]> {
+    console.log("getHexromRomDownloadUrls", romUrl)
 
     const downloadRoms: DownloadRom[] = [];
 
@@ -43,11 +40,11 @@ async function getHexromRomDownloadUrls(romUrl: string): Promise<DownloadRom[]> 
 
         });
 
-        if (downloadRoms.length > 1) {
-            downloadRoms.pop();
-        }
+        // if (downloadRoms.length > 1) {
+        //     downloadRoms.pop();
+        // }
 
-        return downloadRoms;
+        return downloadRoms;        
 
     } catch (error) {
         console.error("Error scraping ROM download URL:", error);
