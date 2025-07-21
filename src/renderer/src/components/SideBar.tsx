@@ -42,7 +42,7 @@ function SideBar() {
                         className={({ isActive }) => (
                             twMerge(
                                 baseClass,
-                                isActive ? activeClass : hoverClass,
+                                isActive || activeItem === item.name ? activeClass : hoverClass,
                             )
                         )}
                     >
