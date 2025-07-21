@@ -13,9 +13,9 @@ interface unzipFileInterface {
 }
 
 async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<void> {
-    const emulatorExt: ext = path.extname(filePath) === '.zip' ? '.zip' : '.7z';
-
-    if(emulatorExt === '.zip') {
+    const fileExt: ext = path.extname(filePath) === '.zip' ? '.zip' : '.7z';
+    
+    if(fileExt === '.zip') {
         try {
             await extractZip(filePath, { dir: outputPath });
 
@@ -26,7 +26,9 @@ async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<
         }
     }
 
-    if(emulatorExt === '.7z') {
+    if(fileExt === '.7z') {
+        const sevenZip = new Extract({ $bin: path7za });
+
         try {
             await new Promise((resolve, reject) => {
             sevenZip.on('end', resolve);
@@ -39,9 +41,6 @@ async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<
             throw  error;
             
         }
-        const sevenZip = new Extract({
-            $bin: path7za,
-        });
     }
 }
 

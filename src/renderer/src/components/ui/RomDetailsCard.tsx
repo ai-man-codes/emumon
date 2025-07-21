@@ -2,7 +2,7 @@ import { RomDetails } from '@renderer/types/romDetails'
 
 const RomDetailsCard = (props: RomDetails) => {
     return (
-        <table className='table-auto border-separate border-spacing-x-5 border-spacing-y-4'>
+        <table className='table-auto border-separate border-spacing-x-5 border-spacing-y-4 '>
             <tbody>
                 {Object.entries(props).map(([key, value]) => {
                     if (!value) return null;

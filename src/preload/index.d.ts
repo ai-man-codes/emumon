@@ -16,6 +16,8 @@ declare global {
 
       fetchRomDownloadUrls: (extension: string, romUrl: string) => Promise<DownloadRom[]>,
 
+      selectDownloadPath: () => Promise<string>,
+
     }
   }
 }

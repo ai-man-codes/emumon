@@ -9,5 +9,7 @@ contextBridge.exposeInMainWorld('api', {
   fetchRomDetails: (extension: string, romUrl: string) => ipcRenderer.invoke('fetch-rom-details', extension, romUrl),
 
   fetchRomDownloadUrls: (extension: string, romUrl: string) => ipcRenderer.invoke('fetch-rom-download-urls', extension, romUrl),
+
+  selectDownloadPath: () => ipcRenderer.invoke('select-download-path'),
   
 })

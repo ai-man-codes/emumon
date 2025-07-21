@@ -8,10 +8,10 @@ const ConsoleRoms = () => {
   const { extension, consoleId } = useParams();
   const [roms, setRoms] = useState<Rom[]>([])
 
-  const { setConsle } = useExtensionStore();
+  const { setConsoleId } = useExtensionStore();
 
   useEffect(() => {
-    if (consoleId) setConsle(consoleId.toUpperCase())
+    if (consoleId) setConsoleId((consoleId.charAt(0).toUpperCase() + consoleId.slice(1)).split('-').join(' '))
 
   }, [consoleId])
 

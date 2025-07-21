@@ -1,13 +1,12 @@
 import useExtensionStore from '@renderer/store/useExtensionStore'
-import React from 'react'
 
 function Header() {
-  const { extension, console, romTitle } = useExtensionStore();
+  const { extension, consoleId, romTitle } = useExtensionStore();
 
   const parts: string[] = [];
   
   if (extension) parts.push(extension);
-  if (console) parts.push(console);
+  if (consoleId) parts.push(consoleId);
   if (romTitle) parts.push(romTitle)
 
   return (

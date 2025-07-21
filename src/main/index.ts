@@ -1,11 +1,11 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import getHexromConsoles from './extensions/hexrom/consoles/getHexromConsoles'
 import getHexromRoms from './extensions/hexrom/roms/getHexromRoms'
 import getHexromRomDetails from './extensions/hexrom/roms/getHexromRomDetails'
 import getHexromRomDownloadUrls from './extensions/hexrom/roms/getHexromRomDownloadUrls'
-  
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -102,6 +102,12 @@ app.whenReady().then(() => {
         default:
           throw new Error("Rom url not available")
     }
+  })
+
+  ipcMain.handle("select-download-path", async() => {
+    const path = await dialog.showOpenDialog({ properties: ['openDirectory'] });
+    console.log(path)
+    return path.canceled ? null : path.filePaths[0];
   })
 
 })

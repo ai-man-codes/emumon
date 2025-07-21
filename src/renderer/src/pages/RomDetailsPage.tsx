@@ -15,7 +15,7 @@ const imageUrlBroken = (imageUrl: string): string => {
 }
 
 const RomDetailsPage = () => {
-  const extension = useExtensionStore(state => state.extension)
+  const { extension, setRomTitle } = useExtensionStore()
   const { romUrl } = useLocation().state
   const [romDetails, setRomDetails] = useState<RomDetails>()
 
@@ -25,7 +25,6 @@ const RomDetailsPage = () => {
 
       try {
         const data = await window.api.fetchRomDetails(extension.toLowerCase(), romUrl)
-
         setRomDetails(data)
 
       } catch (err) {
@@ -55,6 +54,11 @@ const RomDetailsPage = () => {
     fetchRomDownload()
   }, [extension, romDetails?.downloadPageUrl])
 
+  useEffect(() => {
+    if (romDetails) setRomTitle(romDetails.name)
+      
+  }, [romDetails])
+
   if (!romDetails) return <div>Loading...</div>
 
   const imageUrlFixed = imageUrlBroken(romDetails.imageUrl || 'no image')
@@ -69,11 +73,13 @@ const RomDetailsPage = () => {
       </div>
 
       <div className='flex flex-col items-center justify-evenly h-1/2' >
-        {romDownloadUrls.map((romDownloadUrl, index) => (
-          <button key={index} className='px-5 py-2 m-5 bg-white rounded-md text-lg font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-105' >
-            <h1 className='text-lg font-semibold'>{romDownloadUrl.downloadName}</h1>
-          </button>
-        ))}
+        <div className='flex flex-col items-center justify-evenly' >
+          {romDownloadUrls.map((romDownloadUrl, index) => (
+            <button key={index} className='px-5 py-2 m-5 bg-white rounded-sm text-lg font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-105' >
+              <h1 className='text-lg font-semibold'>{romDownloadUrl.downloadName}</h1>
+            </button>
+          ))}
+        </div>
       </div>
 
     </div>

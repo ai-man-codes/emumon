@@ -10,7 +10,7 @@ const ConsoleCard = ({ name, totalGames, url, imageUrl }: Console) => {
     console.log(`/${extension.toLowerCase()}/${consoleId}`) // checking which console is the path
 
     return (
-        <Link to={`/${extension.toLowerCase()}/${consoleId}`} className='p-4 hover:opacity-80 transition-all duration-100 rounded-md hover:scale-110 hover:border-2 hover:border-white border-2 border-transparent'>
+        <Link to={`/${extension.toLowerCase()}/${consoleId}`} className='p-4 transition-all duration-100 rounded-md hover:scale-110 hover:border hover:border-white border border-transparent'>
             <div>
                 <img src={imageUrl} alt="" />
             </div>

@@ -1,5 +1,4 @@
 import RomCardSample from '@renderer/components/ui/RomCardSample'
-import React from 'react'
 
 function Library() {
   return (
@@ -8,7 +7,6 @@ function Library() {
       <RomCardSample />
       <RomCardSample />
       <RomCardSample />
-
     </div>
   )
 }
