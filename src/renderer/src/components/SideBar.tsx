@@ -1,4 +1,5 @@
 import useExtensionStore from '@renderer/store/useExtensionStore'
+import usePathStore from '@renderer/store/usePathStore'
 import { NavLink } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
@@ -16,11 +17,12 @@ const activeClass = 'bg-white font-semibold text-gray-900'
 function SideBar() {
     const handleNavLinkClick = (name: string) => {
         setExtension(name)
-        setConsoleId('')
-        setRomTitle('')
+        setRomsPath('')
+        setConsolesPath('')
     }
     
-    const { setExtension, setConsoleId, setRomTitle } = useExtensionStore()
+    const { setExtension } = useExtensionStore()
+    const { setRomsPath, setConsolesPath } = usePathStore()
 
     return (
         <aside className='w-72 h-screen bg-gradient-to-b from-neutral-900 via-neutral-800 to-neutral-900 text-white flex flex-col p-4'>

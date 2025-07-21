@@ -10,7 +10,7 @@ type ExtensionStore = {
 };
 
 const useExtensionStore = create<ExtensionStore>((set) => ({
-    extension: '',
+    extension: 'Library',
     consoleId: '',
     romTitle: '',
     setExtension: (ext) => set({ extension: ext }),
