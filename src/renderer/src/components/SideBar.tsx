@@ -1,5 +1,6 @@
 import useExtensionStore from '@renderer/store/useExtensionStore'
 import usePathStore from '@renderer/store/usePathStore'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
@@ -21,6 +22,8 @@ function SideBar() {
         setConsolesPath('')
     }
     
+    const [activeItem, setActiveItem] = useState<string>('')
+    
     const { setExtension } = useExtensionStore()
     const { setRomsPath, setConsolesPath } = usePathStore()
 
@@ -32,7 +35,10 @@ function SideBar() {
                     <NavLink
                         key={item.name}
                         to={item.to}
-                        onClick={ () => handleNavLinkClick(item.name) }
+                        onClick={ () => {
+                            handleNavLinkClick(item.name)
+                            setActiveItem(item.name)
+                        } }
                         className={({ isActive }) => (
                             twMerge(
                                 baseClass,

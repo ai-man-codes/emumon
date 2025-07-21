@@ -33,7 +33,7 @@ const RomDetailsPage = () => {
     }
 
     fetchRomDetails()
-  }, [extension, romUrl])
+  }, [romUrl])
 
   const [romDownloadUrls, setRomDownloadUrls] = useState<DownloadRom[]>([]);
 
@@ -52,7 +52,7 @@ const RomDetailsPage = () => {
     }
 
     fetchRomDownload()
-  }, [extension, romDetails?.downloadPageUrl])
+  }, [romDetails?.downloadPageUrl])
 
   useEffect(() => {
     if (romDetails) setRomTitle(romDetails.name)
