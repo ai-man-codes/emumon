@@ -10,4 +10,5 @@ export interface RomDetails {
     downloads: string;
     downloadPageUrl: string;
     imageUrl: string;
+    category: string;
   }

@@ -66,8 +66,8 @@ const RomDetailsPage = () => {
   return (
     <div className='flex flex-col h-full gap-10' >
       <div className='flex flex-row justify-evenly items-center' >
-        <div className='scale-125 mt-12'>
-          <RomCard name={romDetails.name} romUrl={romUrl} imageUrl={imageUrlFixed} />
+        <div className='scale-125 mt-12 hover:overflow-visible'>
+          <RomCard name={romDetails.name} imageUrl={imageUrlFixed} variant='details' />
         </div>
         <RomDetailsCard {...romDetails} />
       </div>

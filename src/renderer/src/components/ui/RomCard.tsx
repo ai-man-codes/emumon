@@ -1,17 +1,24 @@
-import { Rom } from '@renderer/types/rom'
 import { ANIME_RIKKA_GIF_URL, HEXROM_BROKEN_IMAGE_URL } from '@renderer/constants/imageUrlBroken'
+import { twMerge } from 'tailwind-merge';
 
 function imageUrlBroken(imageUrl: string): string {
-
     if(imageUrl == HEXROM_BROKEN_IMAGE_URL) {
         imageUrl = ANIME_RIKKA_GIF_URL;
     }
 
     return imageUrl;
-
 }
 
-const RomCard = ({name, imageUrl}: Rom) => {
+interface RomCardProps {
+    name: string;
+    imageUrl: string;
+    variant?: 'default' | 'details';
+}
+
+const baseClassName = 'text-xl font-light text-white text-center w-48 overflow-hidden text-ellipsis whitespace-nowrap'
+const detailsClassName = 'overflow-visible whitespace-normal'
+
+const RomCard = ({name, imageUrl, variant = 'default'}: RomCardProps) => {
     const imageUrlFixed = imageUrlBroken(imageUrl)
 
     return (
@@ -23,7 +30,7 @@ const RomCard = ({name, imageUrl}: Rom) => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70" />
             </div>
 
-            <h1 className='text-xl font-light text-white text-center w-48'>{ name }</h1>
+            <h1 className={twMerge(baseClassName, variant === 'details' ? detailsClassName : '')}>{ name }</h1>
 
         </div>
     )

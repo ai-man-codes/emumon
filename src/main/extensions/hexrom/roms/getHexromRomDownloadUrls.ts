@@ -3,8 +3,6 @@ import * as cheerio from "cheerio";
 import { DownloadRom } from "../../../types/downloadRom";
 
 async function getHexromRomDownloadUrls(romUrl: string): Promise<DownloadRom[]> {
-    console.log("getHexromRomDownloadUrls", romUrl)
-
     const downloadRoms: DownloadRom[] = [];
 
     try {
@@ -53,10 +51,10 @@ async function getHexromRomDownloadUrls(romUrl: string): Promise<DownloadRom[]> 
     }
 }
 
-(async () => {
-    const romUrl = 'https://hexrom.com/pokemon-sun-3ds/download/'
-    const downloadRoms = await getHexromRomDownloadUrls(romUrl)
-    console.log(downloadRoms)
-})();
+// (async () => {
+//     const romUrl = 'https://hexrom.com/pokemon-sun-3ds/download/'
+//     const downloadRoms = await getHexromRomDownloadUrls(romUrl)
+//     console.log(downloadRoms)
+// })();
 
 export default getHexromRomDownloadUrls;

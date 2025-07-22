@@ -3,7 +3,7 @@ import * as cheerio from "cheerio";
 
 const BASE_URL = "https://hexrom.com/rom-category/";
 
-import { Console } from "@/main/types/console";
+import { Console } from "../../../types/console";
 
 async function getHexromConsoles(): Promise<Console[]> {
     try {
@@ -33,5 +33,10 @@ async function getHexromConsoles(): Promise<Console[]> {
         return [];
     }
 }
+
+// (async () => {
+//     const consoles = await getHexromConsoles();
+//     console.log(consoles);
+// })();
 
 export default getHexromConsoles

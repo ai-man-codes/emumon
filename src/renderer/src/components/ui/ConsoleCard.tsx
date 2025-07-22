@@ -8,7 +8,7 @@ const ConsoleCard = ({ name, totalGames, url, imageUrl }: Console) => {
     const { extension } = useExtensionStore();
     const { setConsolesPath } = usePathStore();
     const consoleId = url.split('/').filter(Boolean).pop()
-
+    
     return (
         <Link to={`/${extension.toLowerCase()}/${consoleId}`} 
             className='p-4 transition-all duration-100 rounded-md hover:scale-110 hover:border hover:border-white border border-transparent' 

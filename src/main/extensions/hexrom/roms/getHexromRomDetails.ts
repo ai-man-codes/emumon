@@ -17,6 +17,7 @@ async function getHexromRomDetails(romUrl: string): Promise<RomDetails> {
       downloads: '',
       downloadPageUrl: '',
       imageUrl: '',
+      category: '',
     }
 
     try {

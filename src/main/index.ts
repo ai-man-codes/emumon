@@ -5,6 +5,10 @@ import getHexromConsoles from './extensions/hexrom/consoles/getHexromConsoles'
 import getHexromRoms from './extensions/hexrom/roms/getHexromRoms'
 import getHexromRomDetails from './extensions/hexrom/roms/getHexromRomDetails'
 import getHexromRomDownloadUrls from './extensions/hexrom/roms/getHexromRomDownloadUrls'
+import getRomspediaConsoles from './extensions/romspedia/consoles/getRomspediaConsoles'
+import getRomspediaRoms from './extensions/romspedia/roms/getRomspediaRoms'
+import getRomspediaDetails from './extensions/romspedia/roms/getRomspediaDetails'
+import getRomspediaDownloadUrls from './extensions/romspedia/roms/getRomspediaDownloadUrls'
 
 function createWindow(): void {
   // Create the browser window.
@@ -61,8 +65,12 @@ app.whenReady().then(() => {
 
     switch (extension) {
         case "hexrom":
-            const consoles = await getHexromConsoles();
-            return consoles;
+            const hexromConsoles = await getHexromConsoles();
+            return hexromConsoles;
+
+        case "romspedia":
+            const romspediaConsoles = await getRomspediaConsoles();
+            return romspediaConsoles;
 
         default:
             throw new Error("Extension not available");
@@ -73,8 +81,12 @@ app.whenReady().then(() => {
     console.log(extension, consoleId)
     switch (extension) {
         case "hexrom":
-            const roms = await getHexromRoms(consoleId);
-            return roms;
+            const hexromRoms = await getHexromRoms(consoleId);
+            return hexromRoms;
+
+        case "romspedia":
+            const romspediaRoms = await getRomspediaRoms(consoleId);
+            return romspediaRoms;
     
         default:
             throw new Error("Conosle url not available")
@@ -84,8 +96,12 @@ app.whenReady().then(() => {
   ipcMain.handle("fetch-rom-details", async(_, extension: string, romUrl: string) => {
     switch (extension) {
       case "hexrom":
-        const romDetails = await getHexromRomDetails(romUrl);
-        return romDetails;
+        const hexromRomDetails = await getHexromRomDetails(romUrl);
+        return hexromRomDetails;
+
+        case "romspedia":
+          const romspediaRomDetails = await getRomspediaDetails(romUrl);
+          return romspediaRomDetails;
 
         default:
           throw new Error("Rom url not available")
@@ -96,8 +112,11 @@ app.whenReady().then(() => {
     switch (extension) {
       case "hexrom":
         const romDownloadUrls = await getHexromRomDownloadUrls(romUrl);
-        console.log(romDownloadUrls)
         return romDownloadUrls;
+
+        case "romspedia":
+          const romspediaDownloadUrls = await getRomspediaDownloadUrls(romUrl);
+          return romspediaDownloadUrls;
 
         default:
           throw new Error("Rom url not available")

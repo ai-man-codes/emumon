@@ -8,6 +8,8 @@ function Header() {
   const { setRomsPath, setConsolesPath } = usePathStore();
 
   const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+  const capitalizeAll = (str: string) => str.split(' ').map(capitalize).join(' ');
+  const removeDash = (str: string) => str.replace(/-/g, ' ');
 
   return (
     <header className='mx-4 px-4 my-3 h-16'>
@@ -36,7 +38,7 @@ function Header() {
               onClick={() => setRomsPath('')}
               className='text-3xl overflow-hidden text-ellipsis whitespace-nowrap text-white font-bold px-4 py-2 border-b-2 border-transparent bg-transparent hover:border-white transition-all duration-200 rounded-sm'
             >
-              {capitalize(consolesPath.split('/').pop() || '')}
+              {capitalizeAll(removeDash(consolesPath.split('/').pop() || ''))}
             </Link>
             {romsPath && (
               <span className='m-3 font-bold text-2xl'>
