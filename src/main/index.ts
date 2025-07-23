@@ -9,6 +9,7 @@ import getRomspediaConsoles from './extensions/romspedia/consoles/getRomspediaCo
 import getRomspediaRoms from './extensions/romspedia/roms/getRomspediaRoms'
 import getRomspediaDetails from './extensions/romspedia/roms/getRomspediaDetails'
 import getRomspediaDownloadUrls from './extensions/romspedia/roms/getRomspediaDownloadUrls'
+import getEmulators from './emulators/getEmulators'
 
 function createWindow(): void {
   // Create the browser window.
@@ -127,6 +128,11 @@ app.whenReady().then(() => {
     const path = await dialog.showOpenDialog({ properties: ['openDirectory'] });
     console.log(path)
     return path.canceled ? null : path.filePaths[0];
+  })
+
+  ipcMain.handle("fetch-emulators", async() => {
+    const emulators = await getEmulators()
+    return emulators
   })
 
 })

@@ -1,11 +1,11 @@
 import RomCard from '@renderer/components/ui/RomCard'
 import RomDetailsCard from '@renderer/components/ui/RomDetailsCard'
 import { useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import useExtensionStore from '@renderer/store/useExtensionStore'
 import { RomDetails } from '@renderer/types/romDetails'
 import { ANIME_RIKKA_GIF_URL, HEXROM_BROKEN_IMAGE_URL } from '@renderer/constants/imageUrlBroken'
 import { DownloadRom } from '@renderer/types/downloadRom'
+import { useQuery } from '@tanstack/react-query'
 
 const imageUrlBroken = (imageUrl: string): string => {
   if (imageUrl === HEXROM_BROKEN_IMAGE_URL) {
@@ -15,51 +15,27 @@ const imageUrlBroken = (imageUrl: string): string => {
 }
 
 const RomDetailsPage = () => {
-  const { extension, setRomTitle } = useExtensionStore()
+  const { extension } = useExtensionStore()
   const { romUrl } = useLocation().state
-  const [romDetails, setRomDetails] = useState<RomDetails>()
+  
+  const { data: romDetails, isLoading: romDetailsLoading, error: romDetailsError } = useQuery<RomDetails>({
+    queryKey: ['romDetails', extension.toLowerCase(), romUrl],
+    queryFn: () => window.api.fetchRomDetails(extension.toLowerCase(), romUrl),
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  })
 
-  useEffect(() => {
-    const fetchRomDetails = async () => {
-      if (!extension || !romUrl) return;
+  const { data: romDownloadUrls , isLoading: romDownloadUrlsLoading, error: romDownloadUrlsError } = useQuery<DownloadRom[]>({
+    queryKey: ['romDownloadUrls', extension.toLowerCase(), romDetails?.downloadPageUrl],
+    queryFn: () => window.api.fetchRomDownloadUrls(extension.toLowerCase(), romDetails?.downloadPageUrl || ''),
+    enabled: !!romDetails?.downloadPageUrl,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  })
 
-      try {
-        const data = await window.api.fetchRomDetails(extension.toLowerCase(), romUrl)
-        setRomDetails(data)
-
-      } catch (err) {
-        console.log("Failed to fetch Rom Details: ", err);
-      }
-    }
-
-    fetchRomDetails()
-  }, [romUrl])
-
-  const [romDownloadUrls, setRomDownloadUrls] = useState<DownloadRom[]>([]);
-
-  useEffect(() => {
-    const fetchRomDownload = async () => {
-      if (!romDetails?.downloadPageUrl) return;
-
-      try {
-        const data = await window.api.fetchRomDownloadUrls(extension.toLowerCase(), romDetails.downloadPageUrl)
-        console.log(extension, romUrl, data)
-        setRomDownloadUrls(data)
-
-      } catch (err) {
-        console.log("Failed to fetch Rom Download Urls: ", err);
-      }
-    }
-
-    fetchRomDownload()
-  }, [romDetails?.downloadPageUrl])
-
-  useEffect(() => {
-    if (romDetails) setRomTitle(romDetails.name)
-      
-  }, [romDetails])
-
-  if (!romDetails) return <div>Loading...</div>
+  if (romDetailsLoading || romDownloadUrlsLoading) return;
+  if (romDetailsError || romDownloadUrlsError) return;
+  if (!romDetails || !romDownloadUrls) return;
 
   const imageUrlFixed = imageUrlBroken(romDetails.imageUrl || 'no image')
 

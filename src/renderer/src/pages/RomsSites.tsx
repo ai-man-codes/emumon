@@ -1,4 +1,4 @@
-import React from 'react'
+
 import RomsSiteCard from '@renderer/components/ui/RomsSiteCard'
 
 const RomsSitesItems = [
@@ -10,7 +10,7 @@ function RomsSites() {
   return (
     <div className='grid grid-cols-4 items-center'>
       {RomsSitesItems.map(item => (
-        <RomsSiteCard item={item}/>
+        <RomsSiteCard key={item.name} item={item}/>
       ))}
     </div>
   )

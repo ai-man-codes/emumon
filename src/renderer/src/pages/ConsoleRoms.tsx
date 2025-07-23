@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Rom } from '@renderer/types/rom';
 import RomCard from '@renderer/components/ui/RomCard';
@@ -24,9 +23,6 @@ const ConsoleRoms = () => {
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
-
-  console.log(data)
-
 
   // useEffect(() => {
 
@@ -56,7 +52,7 @@ const ConsoleRoms = () => {
           onClick={() => setRomsPath(`/${extension?.toLowerCase()}/${consoleId}/${rom.name}`)}
         >
 
-          <RomCard name={rom.name} romUrl={rom.romUrl} imageUrl={rom.imageUrl} />
+          <RomCard name={rom.name} imageUrl={rom.imageUrl} />
 
         </Link>
       ))}

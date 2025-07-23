@@ -1,0 +1,83 @@
+{
+    "PSP": {
+        "extensions": ["iso", "cso"],
+        "emulators": [
+            {
+                "name": "PPSSPP",
+                "downloadUrl": "https://www.ppsspp.org/files/1_19_3/ppsspp_win.zip",
+                "iconUrl": "../assets/emulators/ppsspp.png"
+            }
+        ]
+    },
+
+    "PS2": {
+        "extensions": ["iso", "cso"],
+        "emulators": [
+            {
+                "name": "PCSX2",
+                "downloadUrl": "https://github.com/PCSX2/pcsx2/releases/download/v2.4.0/pcsx2-v2.4.0-windows-x64-Qt.7z",
+                "iconUrl": "../assets/emulators/pcsx2.png"
+            }
+        ]
+    },
+
+    "GBA": {
+        "extensions": ["gba", "gbc", "gb"],
+        "emulators": [
+            {
+                "name": "mGBA",
+                "downloadUrl": "https://github.com/mgba-emu/mgba/releases/download/0.10.5/mGBA-0.10.5-win64.7z",
+                "iconUrl": "../assets/emulators/mgba.png"
+            }
+        ]
+    },
+
+    "NDS": {
+        "extensions": ["nds"],
+        "emulators": [
+            {
+                "name": "DeSmuME",
+                "downloadUrl": "https://github.com/TASEmulators/desmume/releases/download/release_0_9_13/desmume-0.9.13-win64.zip",
+                "iconUrl": "../assets/emulators/desmume.png"
+            },
+            {
+                "name": "melonDS",
+                "downloadUrl": "https://github.com/melonDS-emu/melonDS/releases/download/1.0/melonDS-windows-x86_64.zip",
+                "iconUrl": "../assets/emulators/melonds.png"
+            }
+        ]
+    },
+
+    "3DS": {
+        "extensions": ["3ds", "cia"],
+        "emulators": [
+            {
+                "name": "Citra",
+                "downloadUrl": "https://archive.org/download/citra-nightly-2104_20240304/citra-windows-msvc-20240303-0ff3440.7z",
+                "iconUrl": "../assets/emulators/citra.png"
+            }
+        ]
+    },
+    
+    "WII & GC": {
+        "extensions": ["iso", "gcz", "wbfs", "wad", "gcm"],
+        "emulators": [
+            {
+                "name": "Dolphin",
+                "downloadUrl": "https://dl.dolphin-emu.org/releases/2506/dolphin-2506-x64.7z",
+                "iconUrl": "../assets/emulators/dolphin.png"
+            }
+        ]
+    },
+
+    "PS3": {
+        "extensions": ["iso"],
+        "emulators": [
+            {
+                "name": "RPCS3",
+                "downloadUrl": "https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-9c93ec0bc31bbc94ca4dce2a76ceea80da6f6554/rpcs3-v0.0.37-18022-9c93ec0b_win64_msvc.7z",
+                "iconUrl": "../assets/emulators/rpcs3.png"
+            }
+        ]
+    }
+}

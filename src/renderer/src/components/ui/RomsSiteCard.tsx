@@ -19,7 +19,6 @@ const RomsSiteCard = ({ item }: RomsSitesItemsI) => {
 
             <h1 className='text-white font-light text-center text-2xl'>{item.name}</h1>
         </Link>
-
     )
 }
 

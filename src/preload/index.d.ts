@@ -3,6 +3,7 @@ import { RomDetails } from '@/main/types/romDetails'
 import { Console } from '@/main/types/console'
 import { Rom } from '@/main/types/rom'
 import { DownloadRom } from '@/main/types/downloadRom'
+import { Emulator } from '@/main/types/emulator'
 
 declare global {
   interface Window {
@@ -17,6 +18,8 @@ declare global {
       fetchRomDownloadUrls: (extension: string, romUrl: string) => Promise<DownloadRom[]>,
 
       selectDownloadPath: () => Promise<string>,
+
+      fetchEmulators: () => Promise<Emulator[]>,
 
     }
   }
