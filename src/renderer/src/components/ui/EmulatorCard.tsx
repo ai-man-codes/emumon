@@ -16,7 +16,7 @@ const EmulatorCard = ({ name, iconUrl, downloadUrl }: EmulatorCardProps) => {
                 <h1 className='text-xl font-light text-white text-center w-48 overflow-hidden text-ellipsis whitespace-nowrap'>{name}</h1>
             </div>
 
-            <button className='px-10 py-3 m-5 bg-white rounded-full text-lg font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-110' >
+            <button className='px-10 py-3 m-5 text-white rounded-full font-semibold border-2 bg-transparent hover:bg-white hover:text-black transition-all duration-200 hover:scale-110' >
                 <h1 className='text-xl font-semibold blur-none'>Download</h1>
             </button>
         </div>

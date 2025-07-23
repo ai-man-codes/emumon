@@ -13,7 +13,7 @@ const navItems = [
 
 const baseClass = 'flex items-center px-10 py-3 rounded-full transition-colors duration-200 text-xl'
 const hoverClass = 'hover:opacity-60'
-const activeClass = 'bg-white font-semibold text-gray-900'
+const activeClass = 'bg-white font-semibold text-gray-900 font-normal'
 
 function SideBar() {
     const handleNavLinkClick = (name: string) => {
@@ -22,7 +22,7 @@ function SideBar() {
         setConsolesPath('')
     }
     
-    const [activeItem, setActiveItem] = useState<string>('')
+    const [activeItem, setActiveItem] = useState<string>('Library')
     
     const { setExtension } = useExtensionStore()
     const { setRomsPath, setConsolesPath } = usePathStore()
@@ -40,13 +40,18 @@ function SideBar() {
                             setActiveItem(item.name)
                         } }
                         className={({ isActive }) => (
+                            
                             twMerge(
                                 baseClass,
+                                "flex flex-row gap-6",
                                 isActive || activeItem === item.name ? activeClass : hoverClass,
                             )
                         )}
                     >
-                        {item.name}
+                        <img src={new URL('../assets/icons/SideBar/' + item.name + '.png', import.meta.url).href} alt="Emumon Logo" className={activeItem === item.name ? 'w-8' : 'w-8 invert'} />
+                        <div className={twMerge(
+                            activeItem === item.name ? 'text-xl font-semibold' : 'font-light text-xl'
+                        )}>{item.name}</div>
 
                     </NavLink>
                 ))}

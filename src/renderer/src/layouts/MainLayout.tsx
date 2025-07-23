@@ -25,9 +25,9 @@ const MainLayout = () => {
         <div className="relative z-20 flex flex-col h-full">
           <Header />
           {/* <main className="flex-1 overflow-y-auto"> */}
-            <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 hover:scrollbar-thumb-gray-600 h-full scrollbar-track-transparent scrollbar-hide">
-              <Outlet />
-            </div>
+          <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 hover:scrollbar-thumb-gray-600 h-full scrollbar-track-transparent scrollbar-hide">
+            <Outlet />
+          </div>
           {/* </main> */}
         </div>
       </div>
