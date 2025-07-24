@@ -1,13 +1,12 @@
 import EmulatorCard from '@renderer/components/ui/EmulatorCard'
 import { useQuery } from '@tanstack/react-query'
-import { Emulator } from '@/main/types/emulator'
+import { Emulator } from '@renderer/types/emulator'
+import { emulatorKeys } from '@renderer/query/queryKeys'
 
 function Emulators() {
   const { data, isLoading, error } = useQuery<Emulator[]>({
-    queryKey: ['emulators'],
+    queryKey: emulatorKeys.all,
     queryFn: () => window.api.fetchEmulators(),
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
   })
 
   if (!data) return;
@@ -19,7 +18,6 @@ function Emulators() {
   return (
     <div className='grid grid-cols-4 gap-4 items-center' >
       {data.map((emulator) => (
-        console.log(emulator),
         <EmulatorCard key={emulator.name} name={emulator.name} iconUrl={new URL(emulator.iconUrl, import.meta.url).href} downloadUrl={emulator.downloadUrl} />
       ))}
     </div>

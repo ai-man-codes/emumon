@@ -10,6 +10,7 @@ import getRomspediaRoms from './extensions/romspedia/roms/getRomspediaRoms'
 import getRomspediaDetails from './extensions/romspedia/roms/getRomspediaDetails'
 import getRomspediaDownloadUrls from './extensions/romspedia/roms/getRomspediaDownloadUrls'
 import getEmulators from './emulators/getEmulators'
+import './ipc/settings'
 
 function createWindow(): void {
   // Create the browser window.

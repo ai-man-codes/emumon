@@ -15,3 +15,8 @@ contextBridge.exposeInMainWorld('api', {
   fetchEmulators: () => ipcRenderer.invoke('fetch-emulators'),
   
 })
+
+contextBridge.exposeInMainWorld('settings', {
+  get: (key: string) => ipcRenderer.invoke('settings:get', key),
+  set: (key: string, value: string) => ipcRenderer.invoke('settings:set', key, value),
+})
