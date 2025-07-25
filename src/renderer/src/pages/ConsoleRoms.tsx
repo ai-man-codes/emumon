@@ -2,51 +2,67 @@ import { Link, useParams } from 'react-router-dom'
 import { Rom } from '@renderer/types/rom';
 import RomCard from '@renderer/components/ui/RomCard';
 import usePathStore from '@renderer/store/usePathStore';
-import { useQuery } from '@tanstack/react-query'
+import { useRef, useEffect } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const ConsoleRoms = () => {
   const { extension, consoleId } = useParams();
-  // const [roms, setRoms] = useState<Rom[]>([])
-
   const { setRomsPath } = usePathStore();
+  const loaderRef = useRef<HTMLDivElement>(null);
 
-  if (!extension || !consoleId) return;
+  if(!extension || !consoleId) return;
 
-  const { data, isLoading, error } = useQuery<Rom[]>({
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+    error,
+  } = useInfiniteQuery<{ roms: Rom[], pageCount: number }>({
     queryKey: ['roms', extension.toLowerCase(), consoleId],
-    queryFn: () => window.api.fetchRoms(extension.toLowerCase(), consoleId),
+    queryFn: ({ pageParam }) => window.api.fetchRoms(extension.toLowerCase(), consoleId, pageParam as number),
+    getNextPageParam: (lastPage, allPages) => {
+
+      if(lastPage.pageCount && allPages.length < lastPage.pageCount) {
+        return allPages.length + 1;
+      }
+      
+      return undefined;
+    },
+
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
+    initialPageParam: 1,
+
   })
 
-  if (!data) return;
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if(entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    })
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
+    if(loaderRef.current) observer.observe(loaderRef.current)
 
-  // useEffect(() => {
+    return () => {
+      if(loaderRef.current) observer.unobserve(loaderRef.current)
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  //   async function load() {
-  //     if (!extension || !consoleId) return;
+  if(status === 'pending') return <div className='flex justify-center items-center h-screen'>
+    <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white dark:border-white'></div>
+  </div>
 
-  //     try {
-        // const data = await window.api.fetchRoms(extension.toLowerCase(), consoleId);
-  //       setRoms(data)
-
-  //     } catch (err) {
-  //       console.log("Failed to fetch Roms: ", err);
-  //     }
-  //   }
-
-  //   load()
-
-  // }, [])
+  if(status === 'error') return <div>Error: {error.message}</div>
 
   return (
-    <div className='m-5 grid justify-evenly grid-cols-5 gap-6'>
-      {data.map((rom, index) => (
+    <div className='m-5 flex flex-wrap justify-evenly gap-6'>
+      {data && data?.pages.flatMap((page) => page.roms).map((rom, index) => (
 
-        <Link to={`/${extension?.toLowerCase()}/${consoleId}/${rom.name}`} key={index} 
+        <Link to={`/${extension?.toLowerCase()}/${consoleId}/${rom.name}`} key={ rom.name + index } 
           state={{ romUrl: rom.romUrl }}
           className='transition-all duration-200 hover:opacity-80 hover:scale-105 hover:-translate-y-4'
           onClick={() => setRomsPath(`/${extension?.toLowerCase()}/${consoleId}/${rom.name}`)}
@@ -56,6 +72,12 @@ const ConsoleRoms = () => {
 
         </Link>
       ))}
+
+      {hasNextPage && (
+        <div ref={loaderRef} className='col-span-10 text-center text-gray-400 py-4'>
+          {isFetchingNextPage ? 'Loading more ROMs...' : 'Scroll to load more'}
+        </div>
+      )}
     </div>
   )
 }

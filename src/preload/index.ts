@@ -4,7 +4,7 @@ contextBridge.exposeInMainWorld('api', {
 
   fetchConsoles: (extension: string) => ipcRenderer.invoke('fetch-consoles', extension),
 
-  fetchRoms: (extension: string, consoleId: string) => ipcRenderer.invoke('fetch-roms', extension, consoleId),
+  fetchRoms: (extension: string, consoleId: string, page: number) => ipcRenderer.invoke('fetch-roms', extension, consoleId, page),
 
   fetchRomDetails: (extension: string, romUrl: string) => ipcRenderer.invoke('fetch-rom-details', extension, romUrl),
 

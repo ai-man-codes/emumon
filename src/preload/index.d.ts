@@ -11,7 +11,7 @@ declare global {
 
       fetchConsoles: (extension: string) => Promise<Console[]>,
 
-      fetchRoms: (extension: string, consoleId: string) => Promise<Rom[]>,
+      fetchRoms: (extension: string, consoleId: string, page: number) => Promise<{ roms: Rom[], pageCount: number }>,
 
       fetchRomDetails: (extension: string, romUrl: string) => Promise<RomDetails>,
 

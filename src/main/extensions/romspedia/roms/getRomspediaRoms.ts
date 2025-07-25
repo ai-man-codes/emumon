@@ -4,14 +4,17 @@ import { Rom } from "../../../types/rom";
 
 const BASE_URL = "https://www.romspedia.com"
 
-async function getRomspediaRoms(consoleId: string): Promise<Rom[]> {
+async function getRomspediaRoms(consoleId: string, page: number): Promise<{ roms: Rom[], pageCount: number }> {
     try {
-        const consoleUrl = BASE_URL + '/roms/' + consoleId;
+        const pagePath = page > 1 ? `/page/${page}` : '';
+        const consoleUrl = BASE_URL + '/roms/' + consoleId + pagePath;
 
         const { data: html } = await axios.get(consoleUrl);
         const $ = cheerio.load(html);
     
         const roms: Rom[] = [];
+
+        const pageCount = parseInt($('.pagination li:last-child a').attr('href')?.split('page/')[1] || '1');
 
         $('.single-rom').each((_, el) => {
             const name = $(el).find('a h2').text().trim();
@@ -31,17 +34,17 @@ async function getRomspediaRoms(consoleId: string): Promise<Rom[]> {
             }
         });
 
-        return roms;
+        return { roms, pageCount };
 
     } catch(err) {
         console.error("Error getting roms from romspedia", err);
-        return [];
+        return { roms: [], pageCount: 1 };
     }
 }
 
 // (async () => {
-//     const roms = await getRomspediaRoms("nintendo-ds");
-//     console.log(roms);
+//     const { roms, pageCount } = await getRomspediaRoms("nintendo-ds", 1);
+//     console.log(roms, pageCount);
 // })();
 
 export default getRomspediaRoms;

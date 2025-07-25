@@ -79,7 +79,7 @@ app.whenReady().then(() => {
     }
   });
 
-  ipcMain.handle("fetch-roms", async(_, extension: string, consoleId: string) => {
+  ipcMain.handle("fetch-roms", async(_, extension: string, consoleId: string, page: number) => {
     console.log(extension, consoleId)
     switch (extension) {
         case "hexrom":
@@ -87,7 +87,7 @@ app.whenReady().then(() => {
             return hexromRoms;
 
         case "romspedia":
-            const romspediaRoms = await getRomspediaRoms(consoleId);
+            const romspediaRoms = await getRomspediaRoms(consoleId, page);
             return romspediaRoms;
     
         default:

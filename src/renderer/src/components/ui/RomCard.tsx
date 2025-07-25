@@ -22,7 +22,7 @@ const RomCard = ({name, imageUrl, variant = 'default'}: RomCardProps) => {
     const imageUrlFixed = imageUrlBroken(imageUrl)
 
     return (
-        <div className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent '>
+        <div className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent'>
             <div className='relative w-48 overflow-hidden rounded-xl'>
                 <img src={ imageUrlFixed } alt="Image"
                     className="w-full" />
