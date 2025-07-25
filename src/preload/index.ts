@@ -13,6 +13,8 @@ contextBridge.exposeInMainWorld('api', {
   selectDownloadPath: () => ipcRenderer.invoke('select-download-path'),
 
   fetchEmulators: () => ipcRenderer.invoke('fetch-emulators'),
+
+  searchRoms: (extension: string, page: number, searchTerm: string) => ipcRenderer.invoke('search-roms', extension, page, searchTerm),
   
 })
 

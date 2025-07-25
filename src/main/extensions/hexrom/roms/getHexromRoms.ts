@@ -42,6 +42,6 @@ async function getHexromRoms(consoleId: string, page: number): Promise<{ roms: R
 export default getHexromRoms;
 
 (async () => {
-    const roms = await getHexromRoms('bally-pro-arcade-astrocade', 1);
+    const roms = await getHexromRoms('snes', 1);
     console.log(roms);
 })();

@@ -11,6 +11,8 @@ import getRomspediaDetails from './extensions/romspedia/roms/getRomspediaDetails
 import getRomspediaDownloadUrls from './extensions/romspedia/roms/getRomspediaDownloadUrls'
 import getEmulators from './emulators/getEmulators'
 import './ipc/settings'
+import searchRomspediaRoms from './extensions/romspedia/roms/searchRomspediaRoms'
+import searchHexromRoms from './extensions/hexrom/roms/searchHexromRoms'
 
 function createWindow(): void {
   // Create the browser window.
@@ -80,10 +82,10 @@ app.whenReady().then(() => {
   });
 
   ipcMain.handle("fetch-roms", async(_, extension: string, consoleId: string, page: number) => {
-    console.log(extension, consoleId)
+    
     switch (extension) {
         case "hexrom":
-            const hexromRoms = await getHexromRoms(consoleId);
+            const hexromRoms = await getHexromRoms(consoleId, page);
             return hexromRoms;
 
         case "romspedia":
@@ -92,6 +94,22 @@ app.whenReady().then(() => {
     
         default:
             throw new Error("Conosle url not available")
+    }
+  })
+
+  ipcMain.handle("search-roms", async(_, extension: string, page: number, searchTerm: string) => {
+
+    switch (extension) {
+      case "romspedia":
+        const romspediaRoms = await searchRomspediaRoms(page, searchTerm);
+        return romspediaRoms;
+
+        case "hexrom":
+          const hexromRoms = await searchHexromRoms(page, searchTerm);
+          return hexromRoms;
+
+        default:
+          throw new Error("Search roms not available")
     }
   })
 

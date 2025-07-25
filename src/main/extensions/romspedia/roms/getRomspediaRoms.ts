@@ -42,9 +42,9 @@ async function getRomspediaRoms(consoleId: string, page: number): Promise<{ roms
     }
 }
 
-// (async () => {
-//     const { roms, pageCount } = await getRomspediaRoms("nintendo-ds", 1);
-//     console.log(roms, pageCount);
-// })();
+(async () => {
+    const { roms, pageCount } = await getRomspediaRoms("nintendo-ds", 2);
+    console.log(roms, pageCount);
+})();
 
 export default getRomspediaRoms;

@@ -4,6 +4,7 @@ import { Console } from '@/main/types/console'
 import { Rom } from '@/main/types/rom'
 import { DownloadRom } from '@/main/types/downloadRom'
 import { Emulator } from '@/main/types/emulator'
+import { SearchRom } from '@/main/types/searchRom'
 
 declare global {
   interface Window {
@@ -20,6 +21,8 @@ declare global {
       selectDownloadPath: () => Promise<string>,
 
       fetchEmulators: () => Promise<Emulator[]>,
+
+      searchRoms: (extension: string, page: number, searchTerm: string) => Promise<{ roms: SearchRom[], pageCount: number }>,
 
     },
 

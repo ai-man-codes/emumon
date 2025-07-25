@@ -17,6 +17,8 @@ const imageUrlBroken = (imageUrl: string): string => {
 const RomDetailsPage = () => {
   const { extension } = useExtensionStore()
   const { romUrl } = useLocation().state
+
+  console.log(romUrl)
   
   const { data: romDetails, isLoading: romDetailsLoading, error: romDetailsError } = useQuery<RomDetails>({
     queryKey: ['romDetails', extension.toLowerCase(), romUrl],
