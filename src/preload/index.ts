@@ -28,12 +28,8 @@ contextBridge.exposeInMainWorld('settings', {
 
 contextBridge.exposeInMainWorld('download', {
 
-  downloadEmulator: (emulatorName: string, emulatorUrl: string, downloadPath: string) => ipcRenderer.invoke('download-emulator', { emulatorName, emulatorUrl, downloadPath }),
+  downloadEmulator: (emulatorUrl: string, downloadPath: string, emulatorName: string) => ipcRenderer.invoke('download-emulator', { emulatorUrl, downloadPath, emulatorName }),
 
-  downloadEmulatorProgress: (callback: (progress: { percent: number, transferredBytes: number, totalBytes: number }) => void) => {
-    ipcRenderer.on('download-emulator-progress', (_event, progress) => {
-      callback(progress)
-    })
-  },
+  downloadRom: (romUrl: string, romName: string, extension: string) => ipcRenderer.invoke('download-rom', { romUrl, romName, extension }),
 
 })

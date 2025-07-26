@@ -35,9 +35,9 @@ declare global {
 
     download: {
 
-      downloadEmulator: (emulatorName: string, emulatorUrl: string, downloadPath: string) => Promise<{ success: boolean, path: string, error?: string }>,
+      downloadEmulator: (emulatorUrl: string, downloadPath: string, emulatorName: string) => Promise<void>,
 
-      downloadEmulatorProgress: (callback: (progress: { percent: number, transferredBytes: number, totalBytes: number }) => void) => void,
+      downloadRom: (romUrl: string, romName: string, extension: string) => Promise<void>,
 
     }
   }

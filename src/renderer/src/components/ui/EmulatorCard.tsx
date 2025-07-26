@@ -9,8 +9,7 @@ interface EmulatorCardProps {
 
 const EmulatorCard = ({ name, iconUrl, downloadUrl }: EmulatorCardProps) => {
     const { downloadPath, setDownloadPath } = useDownloadStore()
-    const [isDownloading, setIsDownloading] = useState(false)
-
+    
     useEffect(() => {
         const savedDownloadPath = async () => {
             const path = await window.settings.get('downloadPath')
@@ -19,17 +18,6 @@ const EmulatorCard = ({ name, iconUrl, downloadUrl }: EmulatorCardProps) => {
         savedDownloadPath()
         
     }, [setDownloadPath, downloadPath])
-
-    useEffect(() => {
-        if (isDownloading) {
-            window.download.downloadEmulatorProgress((progress) => {
-                console.log(progress.percent)
-            })
-        }
-    }, [isDownloading])
-
-
-    console.log(downloadPath)
 
     return (
         <div className='flex flex-col items-center justify-center rounded-3xl py-6'>
@@ -42,16 +30,9 @@ const EmulatorCard = ({ name, iconUrl, downloadUrl }: EmulatorCardProps) => {
 
             <button className='px-10 py-3 m-5 focus:outline-none text-white rounded-full font-semibold border-2 bg-transparent hover:bg-white hover:text-black transition-all duration-200 hover:scale-110'
                 onClick={async () => {
-                    console.log("button clicked")
-                    console.log(name, downloadUrl, downloadPath)
-                    const result = await window.download.downloadEmulator(name, downloadUrl, downloadPath)
-                    setIsDownloading(!isDownloading)
+                    await window.download.downloadEmulator(downloadUrl, downloadPath, name)
 
-                    if (result.success) {
-                        console.log('Download started')
-                    } else {
-                        console.error("Error downloading emulator: ", result.error)
-                    }
+                    console.log('Download completed')
                 }} >
                 <h1 className='text-xl font-semibold blur-none'>Download</h1>
             </button>

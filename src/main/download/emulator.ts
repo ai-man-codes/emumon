@@ -12,7 +12,7 @@ interface Emulator {
 
 async function downloadEmulator({ url, emulatorName, userDir }: Emulator): Promise<void> {
     const ext = path.extname(url);
-    const saveDir = path.join(userDir, 'emulators');
+    const saveDir = path.join(userDir, 'emumon-downloads', 'emulators');
 
     fs.mkdirSync(saveDir, { recursive: true });
 

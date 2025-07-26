@@ -74,6 +74,9 @@ importers:
       node-7z:
         specifier: ^3.0.0
         version: 3.0.0
+      node-downloader-helper:
+        specifier: ^2.1.9
+        version: 2.1.9
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.1.0)
@@ -2993,6 +2996,11 @@ packages:
 
   node-api-version@0.2.1:
     resolution: {integrity: sha512-2xP/IGGMmmSQpI1+O/k72jF/ykvZ89JeuKX3TLJAYPDVLUalrshrLHkeVcCCZqG/eEa635cr8IBYzgnDvM2O8Q==}
+
+  node-downloader-helper@2.1.9:
+    resolution: {integrity: sha512-FSvAol2Z8UP191sZtsUZwHIN0eGoGue3uEXGdWIH5228e9KH1YHXT7fN8Oa33UGf+FbqGTQg3sJfrRGzmVCaJA==}
+    engines: {node: '>=14.18'}
+    hasBin: true
 
   node-gyp@9.4.1:
     resolution: {integrity: sha512-OQkWKbjQKbGkMf/xqI1jjy3oCTgMKJac58G2+bjZb3fza6gW2YrCSdMQYaoTb70crvE//Gngr4f0AgVHmqHvBQ==}
@@ -7137,6 +7145,8 @@ snapshots:
   node-api-version@0.2.1:
     dependencies:
       semver: 7.7.2
+
+  node-downloader-helper@2.1.9: {}
 
   node-gyp@9.4.1:
     dependencies:

@@ -13,7 +13,7 @@ interface Rom {
 
 async function downloadRom({ url, romName, userDir, source }: Rom): Promise<void> {
     const ext = path.extname(url);
-    const saveDir = path.join(userDir, 'Roms');
+    const saveDir = path.join(userDir, 'emumon-downloads', 'roms', source);
 
     fs.mkdirSync(saveDir, { recursive: true });
 
