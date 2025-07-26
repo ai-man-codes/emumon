@@ -19,6 +19,21 @@ contextBridge.exposeInMainWorld('api', {
 })
 
 contextBridge.exposeInMainWorld('settings', {
+
   get: (key: string) => ipcRenderer.invoke('settings:get', key),
+
   set: (key: string, value: string) => ipcRenderer.invoke('settings:set', key, value),
+
+})
+
+contextBridge.exposeInMainWorld('download', {
+
+  downloadEmulator: (emulatorName: string, emulatorUrl: string, downloadPath: string) => ipcRenderer.invoke('download-emulator', { emulatorName, emulatorUrl, downloadPath }),
+
+  downloadEmulatorProgress: (callback: (progress: { percent: number, transferredBytes: number, totalBytes: number }) => void) => {
+    ipcRenderer.on('download-emulator-progress', (_event, progress) => {
+      callback(progress)
+    })
+  },
+
 })

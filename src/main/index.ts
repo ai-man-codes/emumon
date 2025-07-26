@@ -1,6 +1,8 @@
 import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+
+
 import getHexromConsoles from './extensions/hexrom/consoles/getHexromConsoles'
 import getHexromRoms from './extensions/hexrom/roms/getHexromRoms'
 import getHexromRomDetails from './extensions/hexrom/roms/getHexromRomDetails'
@@ -10,9 +12,14 @@ import getRomspediaRoms from './extensions/romspedia/roms/getRomspediaRoms'
 import getRomspediaDetails from './extensions/romspedia/roms/getRomspediaDetails'
 import getRomspediaDownloadUrls from './extensions/romspedia/roms/getRomspediaDownloadUrls'
 import getEmulators from './emulators/getEmulators'
-import './ipc/settings'
+
+
 import searchRomspediaRoms from './extensions/romspedia/roms/searchRomspediaRoms'
 import searchHexromRoms from './extensions/hexrom/roms/searchHexromRoms'
+
+
+import './ipc/downloads'
+import './ipc/settings'
 
 function createWindow(): void {
   // Create the browser window.

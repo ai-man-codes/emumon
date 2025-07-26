@@ -35,6 +35,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.83.0
         version: 5.83.0(react@19.1.0)
+      '@types/node-7z':
+        specifier: ^2.1.10
+        version: 2.1.10
       axios:
         specifier: ^1.10.0
         version: 1.10.0
@@ -1180,6 +1183,9 @@ packages:
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
+
+  '@types/node-7z@2.1.10':
+    resolution: {integrity: sha512-LdfuQcGAKsLafyM96+F8VekToCuGQnFy9DMM0UdS6f5pEnaP5kAixp3TQPc1NJU4C6IwLwnednktYBjp/z2LRw==}
 
   '@types/node@22.16.3':
     resolution: {integrity: sha512-sr4Xz74KOUeYadexo1r8imhRtlVXcs+j3XK3TcoiYk7B1t3YRVJgtaD3cwX73NYb71pmVuMLNRhJ9XKdoDB74g==}
@@ -4942,6 +4948,10 @@ snapshots:
       '@types/node': 22.16.3
 
   '@types/ms@2.1.0': {}
+
+  '@types/node-7z@2.1.10':
+    dependencies:
+      '@types/node': 22.16.3
 
   '@types/node@22.16.3':
     dependencies:

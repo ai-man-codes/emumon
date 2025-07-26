@@ -31,6 +31,14 @@ declare global {
       get: (key: string) => Promise<string>,
       set: (key: string, value: string) => Promise<string>
 
+    },
+
+    download: {
+
+      downloadEmulator: (emulatorName: string, emulatorUrl: string, downloadPath: string) => Promise<{ success: boolean, path: string, error?: string }>,
+
+      downloadEmulatorProgress: (callback: (progress: { percent: number, transferredBytes: number, totalBytes: number }) => void) => void,
+
     }
   }
 }

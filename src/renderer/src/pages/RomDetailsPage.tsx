@@ -53,7 +53,7 @@ const RomDetailsPage = () => {
       <div className='flex flex-col items-center justify-evenly h-1/2' >
         <div className='flex flex-col items-center justify-evenly' >
           {romDownloadUrls.map((romDownloadUrl, index) => (
-            <button key={index} className='px-10 py-3 m-5 bg-white rounded-full text-lg font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-105' >
+            <button key={index} className='px-10 py-3 m-5 focus:outline-none bg-white rounded-full text-lg font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-105' >
               <h1 className='text-lg font-semibold'>{romDownloadUrl.downloadName}</h1>
             </button>
           ))}

@@ -8,6 +8,7 @@ import SearchRoms from '@renderer/components/SearchRoms'
 const Consoles = () => {
     const { extension } = useParams();
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
 
     if (!extension) return;
 
@@ -30,8 +31,13 @@ const Consoles = () => {
                 <input className='w-1/5 border bg-transparent font-mono border-white rounded-full hover:scale-105 p-4 text-white text-xl text-center focus:w-1/3 transition-all duration-200 focus:outline-none'
                     type="text" placeholder='Search' value={searchTerm} spellCheck={false} 
                     onChange={(e) => {
-                        setSearchTerm(e.target.value)}
-                    } />
+                        if (searchTimeout) clearTimeout(searchTimeout);
+                        setSearchTerm(e.target.value);
+                        setSearchTimeout(setTimeout(() => {
+                            setSearchTerm(e.target.value)
+                        }, 1000))
+                    }}
+                    />
             </div>
             {searchTerm && (
                 <SearchRoms searchTerm={searchTerm} />
