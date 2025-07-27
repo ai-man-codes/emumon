@@ -26,9 +26,9 @@ const Consoles = () => {
 
     return (
         <div>
-            <div className='flex justify-center items-center h-20 mb-10 '>
-                <img src={new URL('../assets/icons/search.png', import.meta.url).href} alt={extension} className='h-10 mr-4 invert px-2 m-[-100px] opacity-80' />
-                <input className='w-1/5 border bg-transparent font-mono border-white rounded-full hover:scale-105 p-4 text-white text-xl text-center focus:w-1/3 transition-all duration-200 focus:outline-none'
+            <div className='flex justify-center items-center h-16 mb-6 '>
+                <img src={new URL('../assets/icons/search.png', import.meta.url).href} alt={extension} className='h-8 mr-2 invert px-4 m-[-80px] opacity-80' />
+                <input className='w-1/5 border focus:border-2  bg-transparent font-mono border-white rounded-full hover:scale-105 p-2 text-white text-lg text-center focus:w-1/3 transition-all duration-200 focus:outline-none'
                     type="text" placeholder='Search' value={searchTerm} spellCheck={false} 
                     onChange={(e) => {
                         if (searchTimeout) clearTimeout(searchTimeout);

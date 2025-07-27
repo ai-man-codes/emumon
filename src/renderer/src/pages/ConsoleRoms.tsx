@@ -65,7 +65,7 @@ const ConsoleRoms = () => {
 
   return (
 
-    <div className='m-5 flex flex-wrap justify-evenly gap-6'>
+    <div className='m-3 flex flex-wrap justify-evenly gap-4'>
 
       {data && data?.pages.flatMap((page) => page.roms).map((rom, index) => (
 

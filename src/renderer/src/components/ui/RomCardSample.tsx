@@ -8,7 +8,7 @@ const RomCardSample = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70" />
             </div>
 
-            <h1 className='text-xl font-light text-white text-center'>Pokemon Fire Red GBA Download For Free</h1>
+            <h1 className='text-lg font-light text-white text-center'>Pokemon Fire Red GBA Download For Free</h1>
 
         </div>
     )

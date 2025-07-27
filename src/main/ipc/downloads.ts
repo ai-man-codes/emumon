@@ -11,10 +11,29 @@ ipcMain.handle('download-emulator', async (event, { emulatorUrl, downloadPath, e
     if (!win) throw new Error('Window not found');
 
     try {
+
+        let lastTime = Date.now();
+        let lastBytes = 0;
+    
+
         const downloadEmulator = await download(win, emulatorUrl, {
             directory: emulatorDownloadPath,
             onProgress: (progress) => {
-                console.log(progress.percent, progress.transferredBytes, progress.totalBytes)
+
+            const now = Date.now();
+            const elapsedSec = (now - lastTime) / 1000;
+
+            const transferred = progress.transferredBytes;
+            const bytesDiff = transferred - lastBytes;
+            const speedKBs = (bytesDiff / 1024) / elapsedSec;
+
+            console.log(`Progress: ${(progress.percent * 100).toFixed(2)}%`);
+            console.log(`Speed: ${speedKBs.toFixed(2)} KB/s`);
+
+            lastTime = now;
+            lastBytes = transferred;
+                
+                // console.log(progress.percent, progress.transferredBytes, progress.totalBytes)
             },
         });
 
@@ -44,10 +63,28 @@ ipcMain.handle('download-rom', async (event, { romUrl, romName, extension }: { r
     if (!win) throw new Error('Window not found');
 
     try {
+        let lastTime = Date.now();
+        let lastBytes = 0;
+
         const downloadRom = await download(win, romUrl, {
             directory: romDownloadPath,
             onProgress: (progress) => {
-                console.log(progress.percent, progress.transferredBytes, progress.totalBytes)
+
+            const now = Date.now();
+            const elapsedSec = (now - lastTime) / 1000;
+
+            const transferred = progress.transferredBytes;
+            const bytesDiff = transferred - lastBytes;
+            const speedKBs = (bytesDiff / 1024) / elapsedSec;
+
+            console.log(`Progress: ${(progress.percent * 100).toFixed(2)}%`);
+            console.log(`Speed: ${speedKBs.toFixed(2)} KB/s`);
+
+            lastTime = now;
+            lastBytes = transferred;
+                
+
+                // console.log(progress.percent, progress.transferredBytes, progress.totalBytes)
             },
         });
 

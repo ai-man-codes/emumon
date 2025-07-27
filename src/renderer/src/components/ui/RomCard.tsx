@@ -15,7 +15,7 @@ interface RomCardProps {
     variant?: 'default' | 'details';
 }
 
-const baseClassName = 'text-xl font-light text-white text-center w-48 overflow-hidden text-ellipsis whitespace-nowrap'
+const baseClassName = 'text-base font-light text-white text-center w-40 overflow-hidden text-ellipsis whitespace-nowrap'
 const detailsClassName = 'overflow-visible whitespace-normal'
 
 const RomCard = ({name, imageUrl, variant = 'default'}: RomCardProps) => {
@@ -23,7 +23,7 @@ const RomCard = ({name, imageUrl, variant = 'default'}: RomCardProps) => {
 
     return (
         <div className='flex flex-col items-center rounded-3xl py-6 gap-4 bg-transparent'>
-            <div className='relative w-48 overflow-hidden rounded-xl'>
+            <div className='relative w-40 overflow-hidden rounded-xl'>
                 <img src={ imageUrlFixed } alt="Image"
                     className="w-full" />
 

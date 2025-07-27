@@ -40,9 +40,9 @@ const RomDetailsPage = () => {
   const imageUrlFixed = imageUrlBroken(romDetails.imageUrl || 'no image')
 
   return (
-    <div className='flex flex-col h-full gap-10' >
+    <div className='flex flex-col h-full gap-4' >
       <div className='flex flex-row justify-evenly items-center' >
-        <div className='scale-125 mt-12 hover:overflow-visible'>
+        <div className='scale-110 mt-8 hover:overflow-visible'>
           <RomCard name={romDetails.name} imageUrl={imageUrlFixed} variant='details' />
         </div>
         <RomDetailsCard {...romDetails} />
@@ -51,7 +51,7 @@ const RomDetailsPage = () => {
       <div className='flex flex-col items-center justify-evenly h-1/2' >
         <div className='flex flex-col items-center justify-evenly' >
           {romDownloadUrls.map((romDownloadUrl, index) => (
-            <button key={index} className='px-10 py-3 m-5 focus:outline-none bg-white rounded-full text-lg font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-105'
+            <button key={index} className='px-8 py-2 m-5 focus:outline-none bg-white rounded-full text-base font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-105'
               onClick={async () => {
                 if (!romDownloadUrl.downloadUrl.startsWith('https://')) {
                   romDownloadUrl.downloadUrl = 'https://' + romDownloadUrl.downloadUrl
@@ -64,7 +64,7 @@ const RomDetailsPage = () => {
                
               }}
             >
-              <h1 className='text-lg font-semibold'>{romDownloadUrl.downloadName}</h1>
+              <h1 className='text-base font-semibold'>{romDownloadUrl.downloadName}</h1>
             </button>
           ))}
         </div>

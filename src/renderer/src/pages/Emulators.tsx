@@ -16,7 +16,7 @@ function Emulators() {
 
 
   return (
-    <div className='grid grid-cols-4 gap-4 items-center' >
+    <div className='grid grid-cols-4 gap-4 items-center p-4' >
       {data.map((emulator) => (
         <EmulatorCard key={emulator.name} name={emulator.name} iconUrl={new URL(emulator.iconUrl, import.meta.url).href} downloadUrl={emulator.downloadUrl} />
       ))}

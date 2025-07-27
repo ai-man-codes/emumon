@@ -17,12 +17,12 @@ const ConsoleCard = ({ name, totalGames, url, imageUrl }: Console) => {
             <div>
                 <img src={imageUrl} alt="" />
             </div>
-            <h2 className="text-white text-center font-semibold text-xl mb-4">{name}</h2>
+            <h2 className="text-white text-center font-semibold text-lg mb-2">{name}</h2>
 
             <div className='flex flex-1 flex-row gap-5 justify-center'>
-                <h4 className="underline underline-offset-4 text-white font-light">TotalGames</h4>
+                <h4 className="underline underline-offset-4 text-white font-light text-sm">TotalGames</h4>
                 <span className='text-white'>:</span>
-                <div className='bg-white rounded-2xl w-10 text-center px-1'>
+                <div className='bg-white rounded-full w-10 text-center px-1'>
                     <span className='text-black font-semibold text-xs'>{totalGames}</span>
                 </div>
             </div>

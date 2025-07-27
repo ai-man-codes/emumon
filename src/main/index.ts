@@ -24,8 +24,8 @@ import './ipc/settings'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1500,
-    height: 1000,
+    width: 1200,
+    height: 800,
     frame: false,
     show: false,
     roundedCorners: true,

@@ -2,7 +2,7 @@ import { RomDetails } from '@renderer/types/romDetails'
 
 const RomDetailsCard = (props: RomDetails) => {
     return (
-        <table className='table-auto border-separate border-spacing-x-5 border-spacing-y-4'>
+        <table className='table-auto border-separate border-spacing-x-4 border-spacing-y-3 mt-4'>
             <tbody>
                 {Object.entries(props).map(([key, value]) => {
                     if (!value) return null;
@@ -12,10 +12,10 @@ const RomDetailsCard = (props: RomDetails) => {
 
                     return (
                         <tr key={key} className=''>
-                            <td className='text-white font-mono font-bold border text-center p-2 px-3'>
+                            <td className='text-white font-mono  border text-center p-2 px-3 text-sm'>
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                             </td>
-                            <td className='text-white text-l font-mono p-2 overflow-hidden text-ellipsis whitespace-nowrap max-w-md'>{value}</td>
+                            <td className='text-white text-sm font-mono p-2 overflow-hidden text-ellipsis whitespace-nowrap max-w-md'>{value}</td>
                         </tr>
                     )
                 })}
