@@ -17,9 +17,10 @@ import getEmulators from './emulators/getEmulators'
 import searchRomspediaRoms from './extensions/romspedia/roms/searchRomspediaRoms'
 import searchHexromRoms from './extensions/hexrom/roms/searchHexromRoms'
 
-
+import './lib/aria2/test'
 import './ipc/downloads'
 import './ipc/settings'
+
 
 function createWindow(): void {
   // Create the browser window.

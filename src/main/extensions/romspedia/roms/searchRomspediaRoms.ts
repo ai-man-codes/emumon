@@ -45,9 +45,9 @@ async function searchRomspediaRoms(page: number, searchTerm: string): Promise<{ 
     }
 }
 
-(async () => {
-    const { roms, pageCount } = await searchRomspediaRoms(1, "Pokemon");
-    console.log(roms, pageCount);
-})();
+// (async () => {
+//     const { roms, pageCount } = await searchRomspediaRoms(1, "Pokemon");
+//     console.log(roms, pageCount);
+// })();
 
 export default searchRomspediaRoms;

@@ -15,6 +15,9 @@ contextBridge.exposeInMainWorld('api', {
   fetchEmulators: () => ipcRenderer.invoke('fetch-emulators'),
 
   searchRoms: (extension: string, page: number, searchTerm: string) => ipcRenderer.invoke('search-roms', extension, page, searchTerm),
+
+  testDownload: (url: string) => ipcRenderer.invoke('test-download', url),
+
   
 })
 

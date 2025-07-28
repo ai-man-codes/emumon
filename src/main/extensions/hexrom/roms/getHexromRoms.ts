@@ -41,7 +41,7 @@ async function getHexromRoms(consoleId: string, page: number): Promise<{ roms: R
 
 export default getHexromRoms;
 
-(async () => {
-    const roms = await getHexromRoms('snes', 1);
-    console.log(roms);
-})();
+// (async () => {
+//     const roms = await getHexromRoms('snes', 1);
+//     console.log(roms);
+// })();

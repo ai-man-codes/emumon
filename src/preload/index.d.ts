@@ -24,6 +24,8 @@ declare global {
 
       searchRoms: (extension: string, page: number, searchTerm: string) => Promise<{ roms: SearchRom[], pageCount: number }>,
 
+      testDownload: (url: string) => Promise<void>,
+
     },
 
     settings: {

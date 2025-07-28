@@ -28,7 +28,7 @@ function SideBar() {
     const { setRomsPath, setConsolesPath } = usePathStore()
 
     return (
-        <aside className='w-1/5 h-screen bg-gradient-to-b from-neutral-900 via-neutral-800 to-neutral-900 text-white flex flex-col p-4'>
+        <aside className='w-1/5 h-screen bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950 text-white flex flex-col p-4'>
             <h2 className='text-3xl font-semibold mb-6 m-2'>Emumon</h2>
             <nav className='flex flex-col space-y-2'>
                 {navItems.map(item => (
