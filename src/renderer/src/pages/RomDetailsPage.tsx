@@ -54,17 +54,17 @@ const RomDetailsPage = () => {
             <button key={index} className='px-8 py-2 m-5 focus:outline-none bg-white rounded-full text-base font-semibold border-2 border-transparent duration-200 hover:border-white hover:bg-transparent hover:text-white transition-all hover:scale-105'
               onClick={async () => {
 
-                await window.api.testDownload(romDownloadUrl.downloadUrl)
+                // await window.api.testDownload(romDownloadUrl.downloadUrl)
 
 
                 
-                // if (!romDownloadUrl.downloadUrl.startsWith('https://')) {
-                //   romDownloadUrl.downloadUrl = 'https://' + romDownloadUrl.downloadUrl
-                // }
+                if (!romDownloadUrl.downloadUrl.startsWith('https://')) {
+                  romDownloadUrl.downloadUrl = 'https://' + romDownloadUrl.downloadUrl
+                }
 
-                // console.log(romDetails.name)
-                // console.log(romDownloadUrl.downloadUrl)
-                // await window.download.downloadRom(romDownloadUrl.downloadUrl, romDetails.name, extension.toLowerCase())
+                console.log(romDetails.name)
+                console.log(romDownloadUrl.downloadUrl)
+                await window.download.downloadRom(romDownloadUrl.downloadUrl, romDetails.name, romDetails.console, extension.toLowerCase())
 
                
               }}

@@ -1,106 +1,77 @@
-import { ipcMain } from 'electron';
-import { BrowserWindow } from 'electron';
-import { download } from 'electron-dl';
-import unzipFile from '../helpers/unzipFile';
-import settingsStore from '../store/settings/store';
+import { ipcMain } from "electron";
+import { BrowserWindow } from "electron";
+import { addDownload, callAria2, monitorDownload } from "../lib/aria2/arai2Client";
+import path from "path";
+import settingsStore from "../store/settings/store";
+import addEmulator from "./emulators";
+import unzipFile from "../helpers/unzipFile";
 
-ipcMain.handle('download-emulator', async (event, { emulatorUrl, downloadPath, emulatorName }: { emulatorUrl: string, downloadPath: string, emulatorName: string }) => {
+ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorName: string) => {
+
+    const downloadPath = path.join(settingsStore.get('downloadPath'), 'emulators', '__temp__');
+    const savePath = path.join(settingsStore.get('downloadPath'), 'emulators', emulatorName);
+
+    const gid = await addDownload(emulatorUrl, downloadPath);
+
+    monitorDownload(gid);
+
     const win = BrowserWindow.fromWebContents(event.sender);
-    const emulatorDownloadPath = downloadPath + '/emumon-downloads' + '/emulators' + '/' + emulatorName
-
-    if (!win) throw new Error('Window not found');
-
-    try {
-
-        let lastTime = Date.now();
-        let lastBytes = 0;
-    
-
-        const downloadEmulator = await download(win, emulatorUrl, {
-            directory: emulatorDownloadPath,
-            onProgress: (progress) => {
-
-            const now = Date.now();
-            const elapsedSec = (now - lastTime) / 1000;
-
-            const transferred = progress.transferredBytes;
-            const bytesDiff = transferred - lastBytes;
-            const speedKBs = (bytesDiff / 1024) / elapsedSec;
-
-            console.log(`Progress: ${(progress.percent * 100).toFixed(2)}%`);
-            console.log(`Speed: ${speedKBs.toFixed(2)} KB/s`);
-
-            lastTime = now;
-            lastBytes = transferred;
-                
-                // console.log(progress.percent, progress.transferredBytes, progress.totalBytes)
-            },
-        });
-
-        await unzipFile({ filePath: downloadEmulator.getSavePath(), outputPath: emulatorDownloadPath });
-
-        return {
-            success: true,
-            path: emulatorDownloadPath
-        }
-        
-    } catch (error) {
-        return {
-            success: false,
-            error: `Failed to download file: ${error}`
-        }
-    }
-    
+    if (!win) return;
+  
+    const interval = setInterval(async () => {
+      const status = await callAria2('aria2.tellStatus', [gid, ['completedLength', 'totalLength', 'downloadSpeed', 'status']]);
+  
+      const completed = parseInt(status.completedLength);
+      const total = parseInt(status.totalLength);
+      const speed = parseInt(status.downloadSpeed);
+      const percent = total ? (completed / total) * 100 : 0;
+  
+      win.webContents.send('aria2-progress', {
+        percent,
+        speed: (speed / 1024 / 1024).toFixed(2), // in MB/s
+        status: status.status
+      });
+  
+      if (status.status === 'complete') {
+        clearInterval(interval);
+        addEmulator(emulatorName, savePath);
+        await unzipFile({ filePath: downloadPath, outputPath: savePath });
+      }
+    }, 1000);
+  
+    return gid;
 });
 
-ipcMain.handle('download-rom', async (event, { romUrl, romName, extension }: { romUrl: string, romName: string, extension: string }) => {
-    const win = BrowserWindow.fromWebContents(event.sender);
+ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, consoleId: string, extension: string) => {
 
-    const downloadPath = settingsStore.get('downloadPath')
+  const downloadPath = path.join(settingsStore.get('downloadPath'), 'roms', extension, consoleId, romName);
 
-    const romDownloadPath = downloadPath + `/emumon-downloads/roms/${extension}/` + romName
+  const gid = await addDownload(romUrl, downloadPath);
 
-    if (!win) throw new Error('Window not found');
+  monitorDownload(gid);
 
-    try {
-        let lastTime = Date.now();
-        let lastBytes = 0;
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (!win) return;
 
-        const downloadRom = await download(win, romUrl, {
-            directory: romDownloadPath,
-            onProgress: (progress) => {
+  const interval = setInterval(async () => {
+    const status = await callAria2('aria2.tellStatus', [gid, ['completedLength', 'totalLength', 'downloadSpeed', 'status']]);
 
-            const now = Date.now();
-            const elapsedSec = (now - lastTime) / 1000;
+    const completed = parseInt(status.completedLength);
+    const total = parseInt(status.totalLength);
+    const speed = parseInt(status.downloadSpeed);
+    const percent = total ? (completed / total) * 100 : 0;
 
-            const transferred = progress.transferredBytes;
-            const bytesDiff = transferred - lastBytes;
-            const speedKBs = (bytesDiff / 1024) / elapsedSec;
+    win.webContents.send('aria2-progress', {
+      percent,
+      speed: (speed / 1024 / 1024).toFixed(2), // in MB/s
+      status: status.status
+    });
 
-            console.log(`Progress: ${(progress.percent * 100).toFixed(2)}%`);
-            console.log(`Speed: ${speedKBs.toFixed(2)} KB/s`);
-
-            lastTime = now;
-            lastBytes = transferred;
-                
-
-                // console.log(progress.percent, progress.transferredBytes, progress.totalBytes)
-            },
-        });
-
-        await unzipFile({ filePath: downloadRom.getSavePath(), outputPath: romDownloadPath });
-
-        return {
-            success: true,
-            path: romDownloadPath
-        }
-        
-    } catch (error) {
-        return {
-            success: false,
-            error: `Failed to download file: ${error}`
-        }
+    if (status.status === 'complete') {
+      clearInterval(interval);
     }
+  }, 1000);
 
+  return gid;
     
-})
+});

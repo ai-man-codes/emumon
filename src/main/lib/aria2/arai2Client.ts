@@ -15,7 +15,7 @@ type JSONRPCResponse<T> = {
   error?: { code: number; message: string };
 };
 
-async function callAria2<T = any>(method: string, params: any[] = []): Promise<T> {
+export async function callAria2<T = any>(method: string, params: any[] = []): Promise<T> {
   const payload = {
     jsonrpc: '2.0',
     method,
@@ -41,7 +41,6 @@ export function startAria2() {
     '--rpc-listen-all=true',
     '--rpc-allow-origin-all',
     '--rpc-listen-port=6800',
-    '--dir=C:\\Users\\Acer\\Desktop\\emumon-downloads',
     '--max-connection-per-server=16',
     '--split=16',
     '--min-split-size=1M',
@@ -73,8 +72,10 @@ export function stopAria2() {
   }
 }
 
-export async function addDownload(url: string): Promise<string> {
-  const gid = await callAria2<string>('aria2.addUri', [[url]]);
+export async function addDownload(url: string, directory: string): Promise<string> {
+  const gid = await callAria2<string>('aria2.addUri', [[url], {
+    'dir': directory,
+  }]);
   console.log(`Download added with GID: ${gid}`);
   return gid;
 }

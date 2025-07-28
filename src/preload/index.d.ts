@@ -37,9 +37,19 @@ declare global {
 
     download: {
 
-      downloadEmulator: (emulatorUrl: string, downloadPath: string, emulatorName: string) => Promise<void>,
+      downloadEmulator: (emulatorUrl: string, emulatorName: string) => Promise<void>,
 
-      downloadRom: (romUrl: string, romName: string, extension: string) => Promise<void>,
+      downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string) => Promise<void>,
+
+    },
+
+    emulators: {
+
+      get: (emulatorName: string) => Promise<Emulator>,
+
+      remove: (emulatorName: string) => Promise<void>,
+
+      getAll: () => Promise<{ emulatorName: string, downloadPath: string }[]>
 
     }
   }

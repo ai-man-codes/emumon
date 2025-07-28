@@ -1,15 +1,16 @@
 import { useDownloadStore } from '@renderer/store/useDownloadStore'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 interface EmulatorCardProps {
     name: string
     iconUrl: string
     downloadUrl: string
+    isInstalled: boolean
 }
 
-const EmulatorCard = ({ name, iconUrl, downloadUrl }: EmulatorCardProps) => {
-    const { downloadPath, setDownloadPath } = useDownloadStore()
-    
+const EmulatorCard = ({ name, iconUrl, downloadUrl, isInstalled }: EmulatorCardProps) => {
+    const { downloadPath, setDownloadPath, downloadHappened, setDownloadHappened } = useDownloadStore()
+
     useEffect(() => {
         const savedDownloadPath = async () => {
             const path = await window.settings.get('downloadPath')
@@ -28,14 +29,26 @@ const EmulatorCard = ({ name, iconUrl, downloadUrl }: EmulatorCardProps) => {
                 <h1 className='text-lg font-light text-white text-center w-48 overflow-hidden text-ellipsis whitespace-nowrap'>{name}</h1>
             </div>
 
-            <button className='px-6 py-2 m-5 focus:outline-none text-white rounded-full font-medium text-sm border-2 bg-transparent hover:bg-white hover:text-black transition-all duration-200 hover:scale-110'
-                onClick={async () => {
-                    await window.download.downloadEmulator(downloadUrl, downloadPath, name)
-
-                    console.log('Download completed')
+            {!isInstalled ? (
+                <button className='px-6 py-2 m-5 focus:outline-none text-white rounded-full font-medium text-sm border-2 bg-transparent hover:bg-white hover:text-black transition-all duration-200 hover:scale-110'
+                    onClick={async () => {
+                        await window.download.downloadEmulator(downloadUrl, name)
+                        setDownloadHappened(!downloadHappened)
+                        
                 }} >
-                <h1 className='text-lg font-semibold blur-none'>Download</h1>
-            </button>
+                    <h1 className='text-lg font-semibold blur-none'>Download</h1>
+                </button>
+            ) : (
+                <div className=' transition-all duration-100 hover:scale-110 cursor-pointer text-center px-4 py-2 rounded-full m-4 bg-white  flex items-center justify-center hover:bg-red-500 hover:text-white'
+                    onClick={async () => {
+                        await window.emulators.remove(name)
+                        setDownloadHappened(!downloadHappened)
+
+                    }} >
+                        <img src={new URL('../../assets/icons/uninstall-icon.png', import.meta.url).href} alt={name} className='w-5 transition-all duration-100' />
+                        <h1 className='text-lg font-semibold blur-none ml-2'>Uninstall</h1>
+                </div>
+            )}
         </div>
     )
 }

@@ -31,8 +31,18 @@ contextBridge.exposeInMainWorld('settings', {
 
 contextBridge.exposeInMainWorld('download', {
 
-  downloadEmulator: (emulatorUrl: string, downloadPath: string, emulatorName: string) => ipcRenderer.invoke('download-emulator', { emulatorUrl, downloadPath, emulatorName }),
+  downloadEmulator: (emulatorUrl: string, emulatorName: string) => ipcRenderer.invoke('download-emulator', emulatorUrl, emulatorName),
 
-  downloadRom: (romUrl: string, romName: string, extension: string) => ipcRenderer.invoke('download-rom', { romUrl, romName, extension }),
+  downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string) => ipcRenderer.invoke('download-rom', romUrl, romName, consoleId, extension),
+
+})
+
+contextBridge.exposeInMainWorld('emulators', {
+
+  get: (emulatorName: string) => ipcRenderer.invoke('emulators:get', emulatorName),
+
+  getAll: () => ipcRenderer.invoke('emulators:get-all'),
+
+  remove: (emulatorName: string) => ipcRenderer.invoke('emulators:remove', emulatorName),
 
 })
