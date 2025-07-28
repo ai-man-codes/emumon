@@ -16,10 +16,25 @@ ipcMain.handle('emulators:get-all', async (event) => {
 
 ipcMain.handle('emulators:remove', async (event, emulatorName: string) => {
 
+    const allEmulators = Object.entries(emulatorsStore.store)
+
     if (!emulatorName) throw new Error('Emulator name is required')
     if (!emulatorsStore.has(emulatorName as EmulatorKeys)) throw new Error('Emulator not found')
 
-    await fs.rmdir(emulatorsStore.get(emulatorName as EmulatorKeys), { recursive: true })
+    const emulatorPath = allEmulators.find(([key, value]) => key === emulatorName)?.[1]
+
+    if (!emulatorPath) throw new Error('Emulator path not found')
+
+    try {
+        const stat = await fs.stat(emulatorPath)
+        if (stat.isDirectory()) {
+            await fs.rmdir(emulatorPath, { recursive: true })
+        }
+    } catch (error) {
+        console.error(error)
+    }
+
+    console.log(emulatorsStore.store)
 
     return emulatorsStore.delete(emulatorName as EmulatorKeys)
 })

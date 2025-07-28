@@ -39,7 +39,7 @@ const EmulatorCard = ({ name, iconUrl, downloadUrl, isInstalled }: EmulatorCardP
                     <h1 className='text-lg font-semibold blur-none'>Download</h1>
                 </button>
             ) : (
-                <div className=' transition-all duration-100 hover:scale-110 cursor-pointer text-center px-4 py-2 rounded-full m-4 bg-white  flex items-center justify-center hover:bg-red-500 hover:text-white'
+                <div className=' transition-all duration-100 hover:scale-110 cursor-pointer text-center px-6 py-2 rounded-full m-5 bg-white  flex items-center justify-center hover:bg-red-500 hover:text-white'
                     onClick={async () => {
                         await window.emulators.remove(name)
                         setDownloadHappened(!downloadHappened)

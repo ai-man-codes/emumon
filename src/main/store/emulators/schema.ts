@@ -1,8 +1,6 @@
 import { z } from 'zod';
 
-export const emulatorSchema = z.object({
-    downloadPath: z.string().default(''),
-})
+export const emulatorSchema = z.object({})
 
 export type Emulator = z.infer<typeof emulatorSchema>;
 
