@@ -34,8 +34,6 @@ ipcMain.handle('emulators:remove', async (event, emulatorName: string) => {
         console.error(error)
     }
 
-    console.log(emulatorsStore.store)
-
     return emulatorsStore.delete(emulatorName as EmulatorKeys)
 })
 

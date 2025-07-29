@@ -46,6 +46,7 @@
     "node-7z": "^3.0.0",
     "node-downloader-helper": "^2.1.9",
     "node-fetch": "^3.3.2",
+    "node-unrar-js": "^2.0.2",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.3",
     "tailwind-merge": "^3.3.1",

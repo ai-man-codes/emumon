@@ -41,6 +41,8 @@ declare global {
 
       downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string) => Promise<void>,
 
+      onDownloadProgress: (callback: (data: any) => void) => void,
+
     },
 
     emulators: {

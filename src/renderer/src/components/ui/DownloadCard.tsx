@@ -1,26 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface DownloadCardProps {
     name: string;
     imageUrl: string;
-    downloadedSize: string;
-    progress: number;
-    totalSize: string;
-    speed: string;
-    gId: string;
+    completed: number;
+    percent: number;
+    total: number;
+    speedMB: string;
+    status: string;
+    gid: string;
 }
 
-const DownloadCard = ({name='Pokemon Fire Red', imageUrl, downloadedSize='59', progress=69, totalSize='100', speed='100 MB/s'}: DownloadCardProps) => {
+const DownloadCard = ({name, imageUrl, percent, completed, total, speedMB, status, gid}: DownloadCardProps) => {
     const [isPaused, setIsPaused] = useState(false);
-    const [isDownloading, setIsDownloading] = useState(true);
     const [isCancelled, setIsCancelled] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
+
+    useEffect(() => {
+        if (status === 'complete') {
+            setIsCompleted(true);
+        }
+    }, [status]);
     
     return (
         <div className='flex flex-row items-center justify-between rounded-lg bg-transparent p-4 mx-5 w-11/12 text-white hover:bg-black/30 transition-all duration-200'>
             <picture className='h-28 w-28 relative overflow-hidden rounded-lg'>
                 <img className='w-full h-full object-cover rounded-lg'
-                    src={new URL('../../assets/images/fire-red.jpg', import.meta.url).href} alt='Hello' />
+                    src={imageUrl} alt=' ' />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70 rounded-lg" />
             </picture>
 
@@ -38,11 +44,11 @@ const DownloadCard = ({name='Pokemon Fire Red', imageUrl, downloadedSize='59', p
 
             
                 <div className='bg-transparent h-1 rounded-full w-full'>
-                    <div className='h-full rounded-full bg-white' style={{width: `${progress}%`}}></div>
+                    <div className='h-full rounded-full bg-white' style={{width: `${percent}%`}}></div>
                 </div>
                 <div className='flex flex-row items-center justify-between w-full'>
-                    <h2 className='text-sm text-white font-light'>{downloadedSize} / {totalSize} MB</h2>
-                    <h2 className='text-sm text-white font-light'>{speed}</h2>
+                    <h2 className='text-sm text-white font-light'>{completed} / {total} MB</h2>
+                    <h2 className='text-sm text-white font-light'>{speedMB} MB/s</h2>
                 </div>
             </main>
             <footer className='ml-5'>

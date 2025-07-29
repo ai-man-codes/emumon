@@ -1,6 +1,6 @@
 import { ipcMain } from "electron";
 import { BrowserWindow } from "electron";
-import { addDownload, callAria2, monitorDownload } from "../lib/aria2/arai2Client";
+import { addDownload, callAria2, getDownloadFiles, monitorDownloadConsole, monitorDownloadRenderer } from "../lib/aria2/arai2Client";
 import path from "path";
 import settingsStore from "../store/settings/store";
 import addEmulator from "./emulators";
@@ -13,7 +13,7 @@ ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorN
 
     const gid = await addDownload(emulatorUrl, downloadPath);
 
-    monitorDownload(gid);
+    monitorDownloadConsole(gid);
 
     const win = BrowserWindow.fromWebContents(event.sender);
     if (!win) return;
@@ -35,7 +35,8 @@ ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorN
       if (status.status === 'complete') {
         clearInterval(interval);
         addEmulator(emulatorName, savePath);
-        await unzipFile({ filePath: downloadPath, outputPath: savePath });
+        const filePath = await getDownloadFiles(gid);
+        await unzipFile({ filePath, outputPath: savePath });
       }
     }, 1000);
   
@@ -44,11 +45,12 @@ ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorN
 
 ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, consoleId: string, extension: string) => {
 
-  const downloadPath = path.join(settingsStore.get('downloadPath'), 'roms', extension, consoleId, romName);
+  const downloadPath = path.join(settingsStore.get('downloadPath'), 'roms', '__temp__');
+  const savePath = path.join(settingsStore.get('downloadPath'), 'roms', extension, consoleId, romName);
 
   const gid = await addDownload(romUrl, downloadPath);
 
-  monitorDownload(gid);
+  monitorDownloadConsole(gid);
 
   const win = BrowserWindow.fromWebContents(event.sender);
   if (!win) return;
@@ -69,9 +71,17 @@ ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, co
 
     if (status.status === 'complete') {
       clearInterval(interval);
+      const filePath = await getDownloadFiles(gid);
+      await unzipFile({ filePath, outputPath: savePath });
     }
   }, 1000);
 
   return gid;
     
 });
+
+ipcMain.handle('download-progress', async (event, gid: string) => {
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (!win) return;
+  return monitorDownloadRenderer(gid, win);
+})

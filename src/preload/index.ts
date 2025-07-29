@@ -35,6 +35,12 @@ contextBridge.exposeInMainWorld('download', {
 
   downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string) => ipcRenderer.invoke('download-rom', romUrl, romName, consoleId, extension),
 
+  onDownloadProgress: (callback: (data: any) => void) => {
+    ipcRenderer.on('download-progress', (_, data) => {
+      callback(data);
+    });
+  },
+
 })
 
 contextBridge.exposeInMainWorld('emulators', {

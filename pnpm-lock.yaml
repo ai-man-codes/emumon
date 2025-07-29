@@ -83,6 +83,9 @@ importers:
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
+      node-unrar-js:
+        specifier: ^2.0.2
+        version: 2.0.2
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.1.0)
@@ -3049,6 +3052,10 @@ packages:
 
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
+
+  node-unrar-js@2.0.2:
+    resolution: {integrity: sha512-hLNmoJzqaKJnod8yiTVGe9hnlNRHotUi0CreSv/8HtfRi/3JnRC8DvsmKfeGGguRjTEulhZK6zXX5PXoVuDZ2w==}
+    engines: {node: '>=10.0.0'}
 
   nopt@6.0.0:
     resolution: {integrity: sha512-ZwLpbTgdhuZUnZzjd7nb1ZV+4DoiC6/sfiVKok72ym/4Tlf+DFdlHYmT2JPmcNNWV6Pi3SDf1kT+A4r9RTuT9g==}
@@ -7265,6 +7272,8 @@ snapshots:
       - supports-color
 
   node-releases@2.0.19: {}
+
+  node-unrar-js@2.0.2: {}
 
   nopt@6.0.0:
     dependencies:
