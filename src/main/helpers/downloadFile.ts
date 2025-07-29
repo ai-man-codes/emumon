@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as fs from 'fs';
-import * as path from 'path';
 import * as https from 'https';
 
 async function downloadFile(url: string, savePath: string): Promise<void> {

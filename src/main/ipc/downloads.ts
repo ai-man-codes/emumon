@@ -5,6 +5,8 @@ import path from "path";
 import settingsStore from "../store/settings/store";
 import addEmulator from "./emulators";
 import unzipFile from "../helpers/unzipFile";
+import addRomToLibrary from "./romLibrary";
+import downloadFile from "../helpers/downloadFile";
 
 ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorName: string) => {
 
@@ -43,10 +45,13 @@ ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorN
     return gid;
 });
 
-ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, consoleId: string, extension: string) => {
+ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, consoleId: string, extension: string, imageUrl: string) => {
 
-  const downloadPath = path.join(settingsStore.get('downloadPath'), 'roms', '__temp__');
-  const savePath = path.join(settingsStore.get('downloadPath'), 'roms', extension, consoleId, romName);
+  const sanitizedRomName = romName.replace(/[<>:"/\\|?*]/g, '_');
+  const sanitizedConsoleId = consoleId.replace(/[<>:"/\\|?*]/g, '_');
+
+  const downloadPath = path.join(settingsStore.get('downloadPath'), 'roms', extension, '__temp__');
+  const savePath = path.join(settingsStore.get('downloadPath'), 'roms', extension, sanitizedConsoleId, sanitizedRomName);
 
   const gid = await addDownload(romUrl, downloadPath);
 
@@ -71,8 +76,20 @@ ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, co
 
     if (status.status === 'complete') {
       clearInterval(interval);
+      
       const filePath = await getDownloadFiles(gid);
+
       await unzipFile({ filePath, outputPath: savePath });
+
+      await downloadFile(imageUrl, path.join(savePath, 'image.png'));
+
+      addRomToLibrary({
+        name: romName,
+        consoleId: sanitizedConsoleId,
+        extension: extension,
+        romPath: savePath,
+        imagePath: path.join(savePath, 'image.png')
+      });
     }
   }, 1000);
 
@@ -85,3 +102,4 @@ ipcMain.handle('download-progress', async (event, gid: string) => {
   if (!win) return;
   return monitorDownloadRenderer(gid, win);
 })
+

@@ -33,7 +33,7 @@ contextBridge.exposeInMainWorld('download', {
 
   downloadEmulator: (emulatorUrl: string, emulatorName: string) => ipcRenderer.invoke('download-emulator', emulatorUrl, emulatorName),
 
-  downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string) => ipcRenderer.invoke('download-rom', romUrl, romName, consoleId, extension),
+  downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string, imageUrl: string) => ipcRenderer.invoke('download-rom', romUrl, romName, consoleId, extension, imageUrl),
 
   onDownloadProgress: (callback: (data: any) => void) => {
     ipcRenderer.on('download-progress', (_, data) => {
@@ -50,5 +50,15 @@ contextBridge.exposeInMainWorld('emulators', {
   getAll: () => ipcRenderer.invoke('emulators:get-all'),
 
   remove: (emulatorName: string) => ipcRenderer.invoke('emulators:remove', emulatorName),
+
+})
+
+contextBridge.exposeInMainWorld('romLibrary', {
+
+  getAll: () => ipcRenderer.invoke('romLibrary:getAll'),
+
+  remove: (romName: string) => ipcRenderer.invoke('romLibrary:remove', romName),
+
+  get: (romName: string) => ipcRenderer.invoke('romLibrary:get', romName),
 
 })

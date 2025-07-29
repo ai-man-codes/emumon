@@ -8,9 +8,10 @@ const Downloads = () => {
 
     useEffect(() => {
         window.download.onDownloadProgress((data) => {
-            setDownloads((prev) => [...prev, data]);
-            console.log(data);
+            console.log(data)
         });
+
+        
     }, []);
 
   return (

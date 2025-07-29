@@ -1,10 +1,11 @@
 import * as path from 'path';
 import extractZip from 'extract-zip';
-import { extractFull, list } from 'node-7z';
+import { extractFull } from 'node-7z';
 import { path7za } from '7zip-bin';
 import fs from 'fs/promises';
 import fsSync from 'fs';
 import { createExtractorFromData } from 'node-unrar-js';
+import removeTempFile from './removeTempFile';
 
 // extension for the emulator archive
 type ext = '.zip' | '.7z' | '.rar';
@@ -24,7 +25,9 @@ async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<
         try {
             await extractZip(filePath, { dir: outputPath });
 
-            await fs.rm(filePath, { recursive: true });
+            await removeTempFile(filePath);
+
+            console.log('Extracted zip file successfully');
 
         } catch (error) {
             console.error('Error extracting zip file:', error);
@@ -45,7 +48,9 @@ async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<
                 stream.on('error', reject);
             });
 
-            await fs.rm(filePath, { recursive: true });
+            await removeTempFile(filePath);
+
+            console.log('Extracted 7z file successfully');
 
         } catch (error) {
             console.error('Error extracting 7z or rar file:', error);
@@ -77,17 +82,16 @@ async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<
                     await fs.writeFile(fileOutputPath, buffer);
                 }
             }
-            const tempDirPath = path.join(filePath.split('__temp__')[0], '__temp__');
 
-            await fs.rm(tempDirPath, { recursive: true });
+            await removeTempFile(filePath);
+
+            console.log('Extracted rar file successfully');
 
         } catch (error) {
             console.error('Error extracting rar file:', error);
             throw error;
         }
     }
-
-
 }
 
 export default unzipFile;

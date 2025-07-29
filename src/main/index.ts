@@ -17,9 +17,11 @@ import getEmulators from './emulators/getEmulators'
 import searchRomspediaRoms from './extensions/romspedia/roms/searchRomspediaRoms'
 import searchHexromRoms from './extensions/hexrom/roms/searchHexromRoms'
 
+
 import './lib/aria2/test'
 import './ipc/downloads'
 import './ipc/settings'
+import './ipc/romLibrary'
 
 
 function createWindow(): void {
@@ -33,7 +35,8 @@ function createWindow(): void {
     autoHideMenuBar: true,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      webSecurity: false,
     },
     resizable: false,
     // fullscreen: true,

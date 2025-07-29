@@ -6,6 +6,7 @@ import { RomDetails } from '@renderer/types/romDetails'
 import { ANIME_RIKKA_GIF_URL, HEXROM_BROKEN_IMAGE_URL } from '@renderer/constants/imageUrlBroken'
 import { DownloadRom } from '@renderer/types/downloadRom'
 import { useQuery } from '@tanstack/react-query'
+import { useDownloadStore } from '@renderer/store/useDownloadStore'
 
 const imageUrlBroken = (imageUrl: string): string => {
   if (imageUrl === HEXROM_BROKEN_IMAGE_URL) {
@@ -17,6 +18,7 @@ const imageUrlBroken = (imageUrl: string): string => {
 const RomDetailsPage = () => {
   const { extension } = useExtensionStore()
   const { romUrl } = useLocation().state
+  const { setDownloadHappened } = useDownloadStore()
   
   const { data: romDetails, isLoading: romDetailsLoading, error: romDetailsError } = useQuery<RomDetails>({
     queryKey: ['romDetails', extension.toLowerCase(), romUrl],
@@ -56,17 +58,20 @@ const RomDetailsPage = () => {
 
                 // await window.api.testDownload(romDownloadUrl.downloadUrl)
 
-
-                
                 if (!romDownloadUrl.downloadUrl.startsWith('https://')) {
                   romDownloadUrl.downloadUrl = 'https://' + romDownloadUrl.downloadUrl
                 }
 
-                console.log(romDetails.name)
-                console.log(romDownloadUrl.downloadUrl)
-                await window.download.downloadRom(romDownloadUrl.downloadUrl, romDetails.name, romDetails.console, extension.toLowerCase())
+                await window.download.downloadRom(
+                  romDownloadUrl.downloadUrl,
+                  romDetails.name,
+                  romDetails.console,
+                  extension.toLowerCase(),
+                  romDetails.imageUrl,
+                )
 
-               
+                setDownloadHappened(true)
+
               }}
             >
               <h1 className='text-base font-semibold'>{romDownloadUrl.downloadName}</h1>

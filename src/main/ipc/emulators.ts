@@ -39,7 +39,6 @@ ipcMain.handle('emulators:remove', async (event, emulatorName: string) => {
 
 function addEmulator(emulatorName: string, downloadPath: string) {
     if (!emulatorName) throw new Error('Emulator name is required')
-
     if (!downloadPath) throw new Error('Download path is required')
 
     return emulatorsStore.set(emulatorName, downloadPath)
