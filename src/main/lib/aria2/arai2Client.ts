@@ -139,7 +139,7 @@ export function monitorDownloadRenderer(gid: string, win: BrowserWindow) {
         const payload = {
           gid,
           percent: 100,
-          speedMB: '0',
+          speedKB: '0',
           completed: parseInt(status.completedLength),
           total: parseInt(status.totalLength),
           status: 'complete',
@@ -149,28 +149,41 @@ export function monitorDownloadRenderer(gid: string, win: BrowserWindow) {
         return;
       }
 
-      const completed = parseInt(status.completedLength);
-      const total = parseInt(status.totalLength);
+      const completed = (parseInt(status.completedLength) / 1024 / 1024).toFixed(2);
+      const total = (parseInt(status.totalLength) / 1024 / 1024).toFixed(2);
       const speed = parseInt(status.downloadSpeed);
 
-      const percent = total ? ((completed / total) * 100).toFixed(2) : '0';
+      const percent = total ? ((parseInt(completed) / parseInt(total)) * 100).toFixed(2) : '0';
       
-      const speedMB = (speed / 1024 / 1024).toFixed(2);
+      const speedKB = (speed / 1024).toFixed(2);
 
-      const payload = {
+      const payload: SendDownloadProgress = {
         gid,
         percent,
-        speedMB,
-        completed,
-        total,
+        speedKB,
+        completed: parseInt(completed),
+        total: parseInt(total),
         status: status.status,
       };
 
+      console.log(payload);
+
       win.webContents.send('download-progress', payload);
+
+      console.log("payload sent");
 
     } catch (err) {
       console.error('Monitor Error:', err);
       clearInterval(interval);
     }
   }, 1000);
+}
+
+export type SendDownloadProgress = {
+  gid: string,
+  percent: string,
+  speedKB: string,
+  completed: number,
+  total: number,
+  status: string,
 }

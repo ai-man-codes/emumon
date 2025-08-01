@@ -19,6 +19,7 @@ const RomDetailsPage = () => {
   const { extension } = useExtensionStore()
   const { romUrl } = useLocation().state
   const { setDownloadHappened } = useDownloadStore()
+  const { downloads, setDownloads } = useDownloadStore()
   
   const { data: romDetails, isLoading: romDetailsLoading, error: romDetailsError } = useQuery<RomDetails>({
     queryKey: ['romDetails', extension.toLowerCase(), romUrl],
@@ -62,7 +63,7 @@ const RomDetailsPage = () => {
                   romDownloadUrl.downloadUrl = 'https://' + romDownloadUrl.downloadUrl
                 }
 
-                await window.download.downloadRom(
+                const gid = await window.download.downloadRom(
                   romDownloadUrl.downloadUrl,
                   romDetails.name,
                   romDetails.console,
@@ -71,6 +72,12 @@ const RomDetailsPage = () => {
                 )
 
                 setDownloadHappened(true)
+                
+                setDownloads([...downloads, {
+                  gid,
+                  name: romDownloadUrl.downloadName,
+                  imageUrl: romDetails.imageUrl,
+                }])
 
               }}
             >

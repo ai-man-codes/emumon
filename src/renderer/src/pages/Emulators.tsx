@@ -5,7 +5,6 @@ import { emulatorKeys } from '@renderer/query/queryKeys'
 import { useEffect, useState } from 'react'
 import { useDownloadStore } from '@renderer/store/useDownloadStore'
 
-
 function Emulators() {
 
   const [installedEmulators, setInstalledEmulators] = useState<{ emulatorName: string, downloadPath: string }[]>([])

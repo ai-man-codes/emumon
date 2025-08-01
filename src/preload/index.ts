@@ -1,3 +1,4 @@
+import { SendDownloadProgress } from "@/main/lib/aria2/arai2Client";
 import { contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld('api', {
@@ -35,14 +36,17 @@ contextBridge.exposeInMainWorld('download', {
 
   downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string, imageUrl: string) => ipcRenderer.invoke('download-rom', romUrl, romName, consoleId, extension, imageUrl),
 
-  onDownloadProgress: (callback: (data: any) => void) => {
-    ipcRenderer.on('download-progress', (_, data) => {
+  onDownloadProgress: (callback: (data: SendDownloadProgress) => void) => {
+    const listener = (_: Electron.IpcRendererEvent, data: SendDownloadProgress) => {
       callback(data);
-    });
+      ipcRenderer.removeListener('download-progress', listener)
+    }
+    ipcRenderer.on('download-progress', listener)
+    return () => ipcRenderer.removeListener('download-progress', listener)
   },
 
 })
-
+  
 contextBridge.exposeInMainWorld('emulators', {
 
   get: (emulatorName: string) => ipcRenderer.invoke('emulators:get', emulatorName),

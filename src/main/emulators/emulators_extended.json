@@ -3,7 +3,7 @@
         "extensions": ["iso", "cso"],
         "emulators": [{
             "name": "PPSSPP",
-            "consoleName": "PPSSPP",
+            "consoleName": "PSP",
             "downloadUrl": "https://www.ppsspp.org/files/1_19_3/ppsspp_win.zip",
             "iconUrl": "../assets/emulators/ppsspp.png",
             "executable": "PPSSPPWindows64.exe"

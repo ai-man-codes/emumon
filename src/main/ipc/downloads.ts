@@ -7,6 +7,7 @@ import addEmulator from "./emulators";
 import unzipFile from "../helpers/unzipFile";
 import addRomToLibrary from "./romLibrary";
 import downloadFile from "../helpers/downloadFile";
+import { consoleIdChecker } from "../mappings/consoleMap";
 
 ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorName: string) => {
 
@@ -30,7 +31,7 @@ ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorN
   
       win.webContents.send('aria2-progress', {
         percent,
-        speed: (speed / 1024 / 1024).toFixed(2), // in MB/s
+        speed: (speed / 1024).toFixed(2), // in KB/s
         status: status.status
       });
   
@@ -45,20 +46,24 @@ ipcMain.handle('download-emulator', async (event, emulatorUrl: string, emulatorN
     return gid;
 });
 
-ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, consoleId: string, extension: string, imageUrl: string) => {
+ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, consoleId: string, extension: string, imageUrl: string): Promise<string> => {
 
   const sanitizedRomName = romName.replace(/[<>:"/\\|?*]/g, '_');
   const sanitizedConsoleId = consoleId.replace(/[<>:"/\\|?*]/g, '_');
 
+  const realConsoleId = consoleIdChecker(sanitizedConsoleId)
+
   const downloadPath = path.join(settingsStore.get('downloadPath'), 'roms', extension, '__temp__');
-  const savePath = path.join(settingsStore.get('downloadPath'), 'roms', extension, sanitizedConsoleId, sanitizedRomName);
+  const savePath = path.join(settingsStore.get('downloadPath'), 'roms', extension, realConsoleId, sanitizedRomName);
 
   const gid = await addDownload(romUrl, downloadPath);
 
   monitorDownloadConsole(gid);
-
+  
   const win = BrowserWindow.fromWebContents(event.sender);
-  if (!win) return;
+  if (!win) throw new Error('Window not found');
+
+  monitorDownloadRenderer(gid, win);
 
   const interval = setInterval(async () => {
     const status = await callAria2('aria2.tellStatus', [gid, ['completedLength', 'totalLength', 'downloadSpeed', 'status']]);
@@ -70,7 +75,7 @@ ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, co
 
     win.webContents.send('aria2-progress', {
       percent,
-      speed: (speed / 1024 / 1024).toFixed(2), // in MB/s
+      speed: (speed / 1024).toFixed(2), // in KB/s
       status: status.status
     });
 
@@ -85,7 +90,7 @@ ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, co
 
       addRomToLibrary({
         name: romName,
-        consoleId: sanitizedConsoleId,
+        consoleId: realConsoleId,
         extension: extension,
         romPath: savePath,
         imagePath: path.join(savePath, 'image.png')
@@ -97,9 +102,9 @@ ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, co
     
 });
 
-ipcMain.handle('download-progress', async (event, gid: string) => {
-  const win = BrowserWindow.fromWebContents(event.sender);
-  if (!win) return;
-  return monitorDownloadRenderer(gid, win);
-})
+// ipcMain.on('download-progress', async (event, gid: string) => {
+//   const win = BrowserWindow.fromWebContents(event.sender);
+//   if (!win) return;
+//   return monitorDownloadRenderer(gid, win);
+// })
 

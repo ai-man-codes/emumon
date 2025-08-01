@@ -12,18 +12,24 @@ interface RomStoreType {
 function Library() {
 
   const [roms, setRoms] = useState<RomStoreType[]>([]);
-
   useEffect(() => {
     window.romLibrary.getAll().then((roms) => setRoms(roms));
-  }, []);
-
+  }, [roms]);
 
   return (
-    <div className="flex flex-wrap justify-start gap-4 mx-8 my-4 text-white text-2xl" >
+    <div className="grid grid-cols-5 justify-center gap-4 mx-8 mt-6 mb-4 text-white text-2xl" >
       {roms.map((rom) => (
-        <div className="w-1/5 transition-all duration-200 hover:opacity-80 hover:scale-105 hover:-translate-y-4 cursor-pointer" key={rom.name}>
-          <RomCard name={rom.name} imageUrl={`file://${rom.imagePath.replace(/\\/g, '/')}`} variant="default" />
-          <button></button>
+        <div
+        className="w-40 transition-all duration-200 hover:opacity-80 hover:scale-105 hover:-translate-y-4 cursor-pointer" 
+        key={rom.name}>
+
+          <RomCard
+            name={rom.name}
+            imageUrl={`file://${rom.imagePath.replace(/\\/g, '/')}`} 
+            variant="default" 
+            isInLibrary={true}
+          />
+
         </div>
       ))}
     </div>

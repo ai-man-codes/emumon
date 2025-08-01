@@ -6,6 +6,7 @@ import { DownloadRom } from '@/main/types/downloadRom'
 import { Emulator } from '@/main/types/emulator'
 import { SearchRom } from '@/main/types/searchRom'
 import { RomStoreType } from '@/main/store/roms/schema'
+import { SendDownloadProgress } from '@/main/lib/aria2/arai2Client'
 
 declare global {
   interface Window {
@@ -40,9 +41,9 @@ declare global {
 
       downloadEmulator: (emulatorUrl: string, emulatorName: string) => Promise<void>,
 
-      downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string, imageUrl: string) => Promise<void>,
+      downloadRom: (romUrl: string, romName: string, consoleId: string, extension: string, imageUrl: string) => Promise<string>,
 
-      onDownloadProgress: (callback: (data: any) => void) => void,
+      onDownloadProgress: (callback: (data: SendDownloadProgress) => void) => void,
 
     },
 

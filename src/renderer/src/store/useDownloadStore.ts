@@ -6,12 +6,14 @@ interface DownloadStore {
   downloads: {
     name: string;
     imageUrl: string;
+    gid: string;
   }[];
   setDownloadPath: (path: string) => void;
   setDownloadHappened: (happened: boolean) => void;
   setDownloads: (downloads: {
     name: string;
     imageUrl: string;
+    gid: string;
   }[]) => void;
 }
 

@@ -53,7 +53,7 @@ async function unzipFile({ filePath, outputPath }: unzipFileInterface): Promise<
             console.log('Extracted 7z file successfully');
 
         } catch (error) {
-            console.error('Error extracting 7z or rar file:', error);
+            console.error('Error extracting 7z file:', error);
             throw  error;
             
         }
