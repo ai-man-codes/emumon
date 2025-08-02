@@ -28,7 +28,7 @@
             "consoleName": "GBA",
             "downloadUrl": "https://github.com/mgba-emu/mgba/releases/download/0.10.5/mGBA-0.10.5-win64.7z",
             "iconUrl": "../assets/emulators/mgba.png",
-            "executable": "mGBA.exe"
+            "executable": "mGBA-0.10.5-win64/mGBA.exe"
         }]
     },
 
@@ -58,18 +58,18 @@
             "consoleName": "3DS",
             "downloadUrl": "https://archive.org/download/citra-nightly-2104_20240304/citra-windows-msvc-20240303-0ff3440.zip",
             "iconUrl": "../assets/emulators/citra.png",
-            "executable": "nightly/citra.exe"
+            "executable": "nightly/citra-qt.exe"
         }]
     },
 
-    "WII & GC": {
+    "Wii & GC": {
         "extensions": ["iso", "gcz", "wbfs", "wad", "gcm"],
         "emulators": [{
             "name": "Dolphin",
             "consoleName": "WII & GC",
             "downloadUrl": "https://dl.dolphin-emu.org/releases/2506/dolphin-2506-x64.7z",
             "iconUrl": "../assets/emulators/dolphin.png",
-            "executable": "dolphin-2506-x64/Dolphin.exe"
+            "executable": "Dolphin-x64/Dolphin.exe"
         }]
     },
 
@@ -80,7 +80,7 @@
             "consoleName": "PS3",
             "downloadUrl": "https://github.com/RPCS3/rpcs3-binaries-win/releases/download/build-9c93ec0bc31bbc94ca4dce2a76ceea80da6f6554/rpcs3-v0.0.37-18022-9c93ec0b_win64_msvc.7z",
             "iconUrl": "../assets/emulators/rpcs3.png",
-            "executable": "rpcs3-v0.0.37-18022-9c93ec0b_win64_msvc/rpcs3.exe"
+            "executable": "rpcs3.exe"
         }]
     }
 }

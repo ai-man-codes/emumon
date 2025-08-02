@@ -65,6 +65,13 @@ declare global {
 
       get: (romName: string) => Promise<RomStoreType>,
 
+    },
+
+    launch: {
+
+      launchEmulator: (emulatorName: string) => Promise<void>,
+
     }
+
   }
 }

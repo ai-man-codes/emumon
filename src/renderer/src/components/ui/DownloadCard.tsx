@@ -40,7 +40,7 @@ const DownloadCard = ({name, imageUrl, percent, completed, total, speedKB, statu
                 <div className='flex flex-row items-center justify-between w-full'>
                     <h1 className='text-xl text-white font-semibold text-ellipsis overflow-hidden whitespace-nowrap'>{name}</h1>
                     <div className='flex flex-row items-center justify-end gap-6 w-2/5'>
-                        <h2 className='text-sm text-white font-light'>{percent} %</h2>
+                        <h2 className='text-sm text-white font-light'>{percent.toFixed(1)} %</h2>
                         <button className='hover:opacity-50 transition-all duration-100' onClick={() => setIsPaused(!isPaused)}>
                             {isPaused ? (
                                 <img src={new URL('../../assets/icons/resume-icon.png', import.meta.url).href} alt='Resume' className='w-9 invert' />

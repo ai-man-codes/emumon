@@ -22,6 +22,7 @@ import './lib/aria2/test'
 import './ipc/downloads'
 import './ipc/settings'
 import './ipc/romLibrary'
+import './ipc/launch'
 
 
 function createWindow(): void {

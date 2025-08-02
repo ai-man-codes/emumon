@@ -85,7 +85,6 @@ ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, co
       const filePath = await getDownloadFiles(gid);
 
       await unzipFile({ filePath, outputPath: savePath });
-
       await downloadFile(imageUrl, path.join(savePath, 'image.png'));
 
       addRomToLibrary({
