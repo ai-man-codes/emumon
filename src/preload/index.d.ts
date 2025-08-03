@@ -71,6 +71,8 @@ declare global {
 
       launchEmulator: (emulatorName: string) => Promise<void>,
 
+      launchRom: (ronName: string, consoleId: string, extenison: string) => Promise<void>,
+
     }
 
   }

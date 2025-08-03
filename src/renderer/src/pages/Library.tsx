@@ -21,7 +21,9 @@ function Library() {
       {roms.map((rom) => (
         <div
         className="w-40 transition-all duration-200 hover:opacity-80 hover:scale-105 hover:-translate-y-4 cursor-pointer" 
-        key={rom.name}>
+        key={rom.name}
+        onClick={async () => await window.launch.launchRom(rom.name, rom.consoleId, rom.extension)}
+        >
 
           <RomCard
             name={rom.name}

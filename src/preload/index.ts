@@ -69,6 +69,8 @@ contextBridge.exposeInMainWorld('romLibrary', {
 
 contextBridge.exposeInMainWorld('launch', {
 
-  launchEmulator: (emualatorName: string) => ipcRenderer.invoke('launch-emulator', emualatorName)
+  launchEmulator: (emualatorName: string) => ipcRenderer.invoke('launch-emulator', emualatorName),
+
+  launchRom: (romName: string, consoleId: string, extenison: string) => ipcRenderer.invoke('launch-rom', romName, consoleId, extenison)
 
 })
