@@ -1,6 +1,15 @@
-import { spawn, ChildProcessWithoutNullStreams } from 'child_process';
+import { ChildProcessWithoutNullStreams } from 'child_process';
 import axios from 'axios';
 import { BrowserWindow } from 'electron';
+import path from 'path';
+import { app } from 'electron';
+import { spawn } from 'child_process';
+
+const isDev = !app.isPackaged;
+
+const aria2Path = isDev
+  ? path.join(app.getAppPath(), 'public', 'aria2', 'aria2c.exe')
+  : path.join(process.resourcesPath, 'aria2', 'aria2c.exe');
 
 let aria2Process: ChildProcessWithoutNullStreams | null = null;
 
@@ -19,7 +28,7 @@ type JSONRPCResponse<T> = {
 export function startAria2() {
   if (aria2Process) return;
 
-  aria2Process = spawn('aria2c', [
+  aria2Process = spawn(aria2Path, [
     '--enable-rpc',
     '--rpc-listen-all=true',
     '--rpc-allow-origin-all',
@@ -140,8 +149,8 @@ export function monitorDownloadRenderer(gid: string, win: BrowserWindow) {
           gid,
           percent: 100,
           speedKB: '0',
-          completed: parseInt(status.completedLength),
-          total: parseInt(status.totalLength),
+          completed: (parseInt(status.completedLength) / 1024 / 1024).toFixed(2),
+          total: (parseInt(status.totalLength) / 1024 / 1024).toFixed(2),
           status: 'complete',
         };
         win.webContents.send('download-progress', payload);

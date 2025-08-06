@@ -45,6 +45,8 @@ declare global {
 
       onDownloadProgress: (callback: (data: SendDownloadProgress) => void) => void,
 
+      onStopDownload: () => Promise<void>
+
     },
 
     emulators: {

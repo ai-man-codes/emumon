@@ -6,8 +6,7 @@ import RomsSites from '@renderer/pages/RomsSites'
 import Settings from '@renderer/pages/Settings'
 import ConsoleRoms from '@renderer/pages/ConsoleRoms'
 import RomDetailsPage from '@renderer/pages/RomDetailsPage'
-
-import React from 'react'
+import NotFound from '@renderer/pages/NotFound'
 import { Navigate } from 'react-router-dom'
 import { useRoutes } from 'react-router-dom'
 
@@ -48,6 +47,10 @@ const AppRoutes = () => {
                 {
                     path: ':extension/:consoleId/:romDetails',
                     element: <RomDetailsPage />
+                },
+                {
+                    path: "*",
+                    element: <NotFound />
                 }
             ]
         }

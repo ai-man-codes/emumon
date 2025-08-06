@@ -13,10 +13,14 @@ async function getRomFiles(romPath: string, consoleExtensions: string[]): Promis
     try {
         const files = await fs.readdir(romPath)
 
+        console.log(files)
+
         const romFiles = files.filter((file) => {
             const ext = path.extname(file).toLowerCase().replace(".", "")
             return consoleExtensions.includes(ext);
         })
+
+        console.log(romFiles)
 
         return romFiles;
 
@@ -40,14 +44,20 @@ export async function launchRom(romName: string, consoleId: string, extension: s
     const sanitizedRomName = romName.replace(/[<>:"/\\|?*]/g, '_');
     
     const { consoleExtensions, consoleExec, emulatorName } = await getConsoleData(consoleId)
+    console.log(emulatorsStore.get(emulatorName), consoleExec)
 
-    const emulatorPath = emulatorsStore.get(emulatorName)
+    console.log(consoleExtensions, consoleExec, emulatorName)
+
+    const emulatorPath = String(emulatorsStore.get(emulatorName))
     const emulatorExec = path.join(emulatorPath, consoleExec)
+
+    console.log(emulatorExec)
 
     const rom = romStore.get("roms").find((r) => r.name === romName)
 
     if (!rom) return
     const romFile = await getRomFiles(rom.romPath, consoleExtensions)
+    console.log(romFile)
     const romFilePath = path.join(rom.romPath, romFile[0])
 
     console.log(emulatorExec, '\n', romFilePath, '\n')

@@ -25,13 +25,15 @@ const DownloadCard = ({name, imageUrl, percent, completed, total, speedKB, statu
     useEffect(() => {
         if (status === 'complete') {
             setIsCompleted(true);
+
         }
     }, [status]);
     
     return (
+        
         <div className='flex flex-row items-center justify-between rounded-lg bg-transparent p-4 mx-5 w-11/12 text-white hover:bg-black/30 transition-all duration-200'>
             <picture className='h-28 relative overflow-hidden rounded-lg w-28'>
-                <img className=' object-cover rounded-lg'
+                <img className=' object-cover rounded-lg h-28'
                     src={imageUrl} alt=' ' />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-70 rounded-lg" />
             </picture>
@@ -62,11 +64,14 @@ const DownloadCard = ({name, imageUrl, percent, completed, total, speedKB, statu
                 </div>
             </main>
             <footer className='ml-5'>
-                <button className='bg-transparent text-white p-2 rounded-lg hover:opacity-50 hover:translate-y-1 transition-all duration-200'>
+                <button
+                onClick={() => window.download.onStopDownload}
+                className='bg-transparent text-white p-2 rounded-lg hover:opacity-50 hover:translate-y-1 transition-all duration-200'>
                     <img src={new URL('../../assets/icons/cancel-icon.png', import.meta.url).href} alt='Close' className='w-8 invert' />
                 </button>
             </footer>
         </div>
+                             
     )
 }
 

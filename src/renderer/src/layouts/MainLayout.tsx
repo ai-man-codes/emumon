@@ -1,8 +1,40 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "@renderer/components/SideBar";
 import Header from "@renderer/components/Header";
+import { useEffect, useRef } from "react";
 
 const MainLayout = () => {
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const start = 3;
+  const end = 60;
+
+  useEffect(() => {
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleLoadedMetadata = () => {
+      video.currentTime = start;
+      video.play();
+    }
+
+    const handleVideoLoop = () => {
+      if(video.currentTime >= end) {
+        video.currentTime = start;
+      }
+    }
+
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("timeupdate", handleVideoLoop);
+
+    return () => {
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("timeupdate", handleVideoLoop);
+    };
+
+  }, [start, end])
+
   return (
     <div className="flex h-screen overflow-hidden">
       <SideBar />
@@ -12,6 +44,7 @@ const MainLayout = () => {
           autoPlay
           muted
           loop
+          ref={videoRef}
           className="absolute inset-0 object-cover w-full h-full z-0"
         >
           <source src={new URL('../assets/videos/bg-small.mp4', import.meta.url).href} type="video/mp4" />
