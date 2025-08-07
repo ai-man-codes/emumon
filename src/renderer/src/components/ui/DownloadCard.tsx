@@ -26,7 +26,6 @@ const DownloadCard = ({name, imageUrl, percent, completed, total, speedKB, statu
     useEffect(() => {
         if (status === 'complete') {
             setIsCompleted(true);
-            console.log(isCompleted)
         }
     }, [status]);
     

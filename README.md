@@ -1,7 +1,11 @@
 # EmuMon - ROM Emulation Manager
 
 <div align="center">
+<<<<<<< HEAD
   <img src="src/renderer/src/assets/icon.ico" alt="EmuMon Logo" width="100">
+=======
+  <img src="src/renderer/src/assets/icons/emumon-logo.png" alt="EmuMon Logo" width="100">
+>>>>>>> eb221967403fb2cd12e90b528cdba83063d8e833
   <p><strong>A comprehensive ROM emulation manager built with Electron, React, and TypeScript</strong></p>
 </div>
 

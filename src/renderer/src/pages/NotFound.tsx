@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import React from 'react'
+
+>>>>>>> eb221967403fb2cd12e90b528cdba83063d8e833
 const NotFound = () => {
   return (
     <div className='w-full h-full'>
