@@ -9,6 +9,11 @@
 
 EmuMon is a modern, cross-platform ROM emulation manager that simplifies discovering, downloading, and playing retro games. It provides a unified interface for managing emulators and ROMs across multiple gaming consoles, with support for popular ROM sources and automatic emulator setup.
 
+### 🎥 Demo Video
+
+[Watch the demo](src/renderer/src/assets/videos/demo.mp4)
+
+
 ## ✨ Features
 
 ### 🎯 Core Features
