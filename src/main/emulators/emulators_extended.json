@@ -22,7 +22,7 @@
     },
 
     "GBA": {
-        "extensions": ["gba", "gbc", "gb"],
+        "extensions": ["gba", "gbc", "gb", "ips"],
         "emulators": [{
             "name": "mGBA",
             "consoleName": "GBA",

@@ -11,14 +11,15 @@
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
-    "start": "electron-vite preview",
+    "start": "electron-forge start",
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
-    "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "dist": "electron-builder",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "7zip-bin": "^5.2.0",
@@ -66,8 +67,6 @@
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.21",
     "daisyui": "2.51.6",
-    "electron": "^35.7.0",
-    "electron-builder": "^25.1.8",
     "electron-vite": "^3.1.0",
     "eslint": "^9.31.0",
     "eslint-plugin-react": "^7.37.5",
@@ -81,7 +80,8 @@
     "tailwind-scrollbar-hide": "^4.0.0",
     "tailwindcss": "3.4.3",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "electron-prebuilt-compile": "35.7.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -91,5 +91,38 @@
   },
   "keywords": [],
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "build": {
+    "appId": "com.example.emumon",
+    "productName": "EmuMon",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/",
+      "dist-electron/",
+      "node_modules/",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "public/aria2",
+        "to": "aria2",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "publish": [
+      {
+        "provider": "github"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/icon.ico"
+    }
+  }
 }

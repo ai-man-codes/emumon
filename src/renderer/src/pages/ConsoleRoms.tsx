@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Rom } from '@renderer/types/rom';
 import RomCard from '@renderer/components/ui/RomCard';
 import usePathStore from '@renderer/store/usePathStore';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const ConsoleRoms = () => {

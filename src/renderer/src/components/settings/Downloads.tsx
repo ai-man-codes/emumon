@@ -5,7 +5,7 @@ import { SendDownloadProgress } from '@renderer/types/sendDownloadProgress';
 
 const Downloads = () => {
 
-    const { downloads, setDownloads, downloadHappened } = useDownloadStore();
+    const { downloads, downloadHappened } = useDownloadStore();
     const [downloadProgress, setDownloadProgress] = useState<Record<string,SendDownloadProgress>>({});
 
     useEffect(() => {

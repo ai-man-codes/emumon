@@ -18,7 +18,7 @@
     },
 
     "GBA": {
-        "extensions": ["gba", "gbc", "gb"],
+        "extensions": ["gba", "gbc", "gb", "ips"],
         "emulators": [{
             "name": "mGBA",
             "downloadUrl": "https://github.com/mgba-emu/mgba/releases/download/0.10.5/mGBA-0.10.5-win64.7z",

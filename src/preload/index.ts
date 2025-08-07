@@ -45,6 +45,8 @@ contextBridge.exposeInMainWorld('download', {
     return () => ipcRenderer.removeListener('download-progress', listener)
   },
 
+  onStopDownload: () => ipcRenderer.invoke('stop-download')
+
 })
   
 contextBridge.exposeInMainWorld('emulators', {

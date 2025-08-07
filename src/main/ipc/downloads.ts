@@ -1,6 +1,6 @@
 import { ipcMain } from "electron";
 import { BrowserWindow } from "electron";
-import { addDownload, callAria2, getDownloadFiles, monitorDownloadConsole, monitorDownloadRenderer } from "../lib/aria2/arai2Client";
+import { addDownload, callAria2, getDownloadFiles, monitorDownloadConsole, monitorDownloadRenderer, stopAria2 } from "../lib/aria2/arai2Client";
 import path from "path";
 import settingsStore from "../store/settings/store";
 import addEmulator from "./emulators";
@@ -101,9 +101,4 @@ ipcMain.handle('download-rom', async (event, romUrl: string, romName: string, co
     
 });
 
-// ipcMain.on('download-progress', async (event, gid: string) => {
-//   const win = BrowserWindow.fromWebContents(event.sender);
-//   if (!win) return;
-//   return monitorDownloadRenderer(gid, win);
-// })
-
+ipcMain.handle( 'stop-download', async (_) => stopAria2() )
