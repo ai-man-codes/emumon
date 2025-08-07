@@ -13,6 +13,10 @@ EmuMon is a modern, cross-platform ROM emulation manager that simplifies discove
 
 [Watch the demo](src/renderer/src/assets/videos/demo.mp4)
 
+![Alt text](src/renderer/src/assets/images/demo-3.png)
+![Alt text](src/renderer/src/assets/images/demo-2.png)
+![Alt text](src/renderer/src/assets/images/demo-1.png)
+
 
 ## ✨ Features
 
