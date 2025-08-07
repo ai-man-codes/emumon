@@ -7,3 +7,5 @@ out
 .vscode
 cfg
 release
+cfg
+uni.ini
